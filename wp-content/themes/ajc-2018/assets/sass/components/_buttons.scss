@@ -1,0 +1,161 @@
+button, .button {
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  font-size: 18px !important;
+  font-family: $ajc-heading;
+  font-weight: 400;
+  text-align: center;
+  border: 0;
+  display: inline-block;
+  padding: 0 1em;
+}
+
+button:hover, .button:hover {
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.9;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+
+button.small, .button.small {
+  height: 2em;
+  line-height: 2em;
+  font-size: 0.75em;
+}
+
+button.medium, .button.medium {
+  height: 3em;
+  line-height: 3em;
+  font-size: 0.875em;
+}
+
+button.large, .button.large {
+  height: 4em;
+  line-height: 4em;
+  font-size: 1.25em;
+}
+
+button.blue, .button.blue {
+  background-color: $ajc-blue;
+  color: #fff;
+}
+
+button.border, .button.border {
+  background-color: #fff;
+  color: #333;
+  box-shadow: inset 0 0 0 1px #333;
+}
+
+button.orange, .button.orange {
+  background-color: #e4c785;
+  color: #fff;
+}
+
+button.silver, .button.silver {
+  color: $grey-dark;
+  background-color: $grey-light;
+}
+
+button.silver:hover, .button.silver:hover {
+  background-color: $ajc_light_grey;
+}
+
+button.white, .button.white {
+  border: 1px solid #ddd;
+  background-color: white;
+}
+
+button.white:hover, .button.white:hover {
+  border: 1px solid #ccc;
+}
+
+button.white span, .button.white span {
+  color: #FF5965;
+}
+
+button.white:hover, .button.white:hover {
+  opacity: 1;
+}
+
+button.black, .button.black, .content.checkout .login input.button {
+  color: #fff;
+  background-color: #000;
+}
+
+button.black:hover, .button.black:hover, .content.checkout .login input.button:hover {
+  background-color: #232121;
+}
+
+button.green, .button.green {
+  color: #fff;
+  background-color: #2f847c;
+}
+
+button.green:hover, .button.green:hover {
+  opacity: 0.9;
+}
+
+button.loading:after, .button.loading:after {
+  background-repeat: no-repeat;
+  content: ' ';
+  background-image: url("../images/ajax-loader.gif");
+  width: 17px;
+  height: 17px;
+  display: inline-block;
+  margin-bottom: -3px;
+  margin-left: 7px;
+}
+
+button span, .button span {
+  margin-right: 0.5em;
+}
+
+button span.icon-facebook, .button span.icon-facebook {
+  margin-right: 1em;
+}
+
+button span.icon-refresh, .button span.icon-refresh {
+  margin-left: 0.666em;
+}
+
+button span.icon-hint, .button span.icon-hint {
+  background-size: 20px 20px;
+  background-image: url(../images/misc/hint.png);
+  background-repeat: no-repeat;
+  width: 20px !important;
+  height: 20px;
+  top: 16px;
+  right: 13px !important;
+}
+
+button, input, select, textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 100%;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+
+button, input {
+  line-height: normal;
+}
+
+button, html input[type="button"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}

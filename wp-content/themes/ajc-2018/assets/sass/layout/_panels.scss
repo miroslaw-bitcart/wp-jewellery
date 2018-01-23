@@ -1,0 +1,179 @@
+/* 3.7 Panels */
+
+.panels {
+  padding: 0 1em;
+  &.periods {
+    padding-top: 1.5em;
+  }
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  img {
+    float: left;
+    width: 100%;
+    height: auto;
+  }
+  h2 {
+    margin-bottom: 0.333em;
+    line-height: 1.45em;
+    font-size: 1.5em;
+    font-family: $ajc-heading;
+    font-weight: 400;
+  }
+  h4 {
+    color: $grey-dark;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8125em;
+    margin-bottom: 0.333em;
+  }
+  p {
+    font-size: 0.875em;
+    margin: 0;
+    font-weight: 400;
+  }
+  a {
+    text-decoration: none;
+    color: $grey-dark;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  &.full-width {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 100%;
+    &:last-child, &:nth-child(n) {
+      margin-right: 0;
+    }
+    &.thin-banner {
+      border-bottom: 1px solid #eee;
+      border-top: none;
+      .text {
+        position: absolute;
+        width: 50em;
+        margin-left: -25em;
+        left: 50%;
+        font-family: $ajc-heading;
+        font-weight: 300;
+        text-align: center;
+        h2 {
+          font-size: 3em;
+          margin: 0.25em 0 0 0;
+          color: #f5303e;
+        }
+        p {
+          font-family: $ajc-body;
+          font-size: 1.125em;
+          font-style: none;
+        }
+      }
+    }
+  }
+  &.half {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    &:last-child, &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+  &.third {
+    text-align: center;
+    line-height: 1.5em;
+    p {
+      font-size: 1em;
+      line-height: 1.6em;
+    }
+  }
+  &.flexslider .caption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50em;
+    border: none;
+    text-align: center;
+    margin: -3.5em 0 0 -25em;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+    h2, h3 {
+      display: block;
+      color: #fff;
+    }
+    h2 {
+      font-size: 3em;
+      padding: 0 0 0.25em 0;
+      font-family: $ajc-heading;
+      font-weight: 400;
+      background: none;
+    }
+    h3, h4 {
+      font-family: $ajc-sans;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    h3 {
+      font-size: 0.8125em;
+    }
+    h4 {
+      display: inline-block;
+      color: #fff;
+      border: 2px solid #fff;
+      padding: 0.333em 0.666em;
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .panel img {
+    border: none;
+  }
+}
+
+@media screen and (min-width: 48em) and (max-width: 59.9375em) {
+  .panel.full-width.thin-banner .text h2 {
+    font-size: 2em;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .panel.full-width.thin-banner {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .panel.third {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    &:last-child, &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 36em) {
+  .panel.third {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 31.76157%;
+    &:last-child, &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .panel.flexslider .caption {
+    font-size: 85%;
+    top: 55%;
+  }
+}

@@ -1,0 +1,136 @@
+$nav-off-canvas-width: 80%;
+
+#nav {
+    position: absolute;
+    top: 0;
+    height: 100%;
+
+    &:not(:target) {
+        z-index: 1;
+        height: 0;
+    }
+
+    &:target {
+        .close-btn {
+            display: block;
+        }
+    }
+
+    .close-btn {
+        position: absolute;
+        top: pem(-60);
+        left: pem(30);
+    }
+
+    .block {
+        position: relative;
+        padding: 0;
+    }
+
+    li {
+        position: relative;
+
+        &.is-active:after {
+            z-index: 50;
+            display: block;
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: pem(-0.5);
+            margin-top: pem(-10);
+            border-top: pem(10) transparent solid;
+            border-bottom: pem(10) transparent solid;
+            border-right: pem(10) #fff solid;
+        }
+    }
+}
+
+
+.js-ready {
+
+    #nav {
+        height: 100%;
+        width: $nav-off-canvas-width;
+
+        .block {
+            background: transparent;
+        }
+
+        .close-btn {
+            display: block;
+            @include opacity(0.7);
+
+            &:focus,
+            &:hover {
+                @include opacity(1);
+            }
+        }
+    }
+}
+
+.js-ready {
+
+    #nav {
+        left: (0 - $nav-off-canvas-width);
+    }
+
+    #wrapper {
+        left: 0;
+    }
+}
+
+.js-nav {
+
+    #wrapper {
+        left: $nav-off-canvas-width;
+    }
+}
+
+
+.csstransforms3d.csstransitions.js-ready {
+
+    #nav {
+        left: 0;
+        @include transform(translate3d(-100%,0,0));
+        @include backface-visibility(hidden);
+    }
+
+    #wrapper {
+        left: 0 !important;
+       // @include transform(translate3d(0,0,0));
+        @include transition(transform 500ms ease);
+        @include backface-visibility(hidden);
+    }
+}
+
+.csstransforms3d.csstransitions.js-nav {
+
+    #wrapper {
+        @include transform(translate3d($nav-off-canvas-width,0,0) scale3d(1,1,1));
+    }
+}
+
+.csstransforms3d.csstransitions.js-ready {
+
+    #nav {
+
+        .block {
+            @include opacity(0.7);
+            @include transition(opacity 300ms 100ms ease, transform 500ms ease);
+            @include transform(translate3d($nav-off-canvas-width,0,0) scale3d(0.9,0.9,0.9));
+            @include transform-origin(50%, 0%);
+        }
+    }
+}
+
+.csstransforms3d.csstransitions.js-nav {
+
+    #nav {
+
+        .block {
+            @include opacity(1);
+            @include transform(translate3d(0,0,0));
+        }
+    }
+}
+

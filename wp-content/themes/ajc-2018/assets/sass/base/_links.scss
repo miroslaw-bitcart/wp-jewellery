@@ -1,0 +1,37 @@
+/* 1.5 - Links */
+
+a {
+  color: $ajc-blue;
+  text-decoration: none;
+  -webkit-transition: all 0.25s ease-in;
+  -moz-transition: all 0.25s ease-in;
+  -o-transition: all 0.25s ease-in;
+  transition: all 0.25s ease-in;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover, a:active {
+  outline: 0;
+}
+
+a {
+  &.skip {
+    font-family: $ajc-sans;
+    font-size: 0.8125em;
+    color: #777777;
+    position: absolute;
+    bottom: 1.2%;
+    right: 1em;
+    &:hover {
+      color: $grey-dark;
+      text-decoration: none;
+    }
+  }
+  &.minor {
+    color: $grey-dark;
+  }
+}

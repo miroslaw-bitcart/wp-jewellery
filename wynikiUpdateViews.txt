@@ -1,0 +1,19 @@
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		public function update_views_ajax(){
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:			$result = $this->__update_views($post_ID);
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		} // end update_views_ajax
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&wpp_id=<?php echo $this->current_post_id; ?>';
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		private function __update_views($id) {
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:			if ( has_action( 'wpp_pre_update_views' ) )
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:				do_action( 'wpp_pre_update_views', $id, $views );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:			if ( has_action( 'wpp_post_update_views' ) )
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:				do_action( 'wpp_post_update_views', $id );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		} // end __update_views
+./wp-content/plugins/wordpress-popular-posts/readme.txt:* Renames wpp_update_views action hook to wpp_post_update_views, **update your code!**
+./wp-content/plugins/wordpress-popular-posts/readme.txt:* Adds wpp_pre_update_views action hook.
+./wynikiUpdateViewsAjax.txt:./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );
+./wynikiUpdateViewsAjax.txt:./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
+./wynikiUpdateViewsAjax.txt:./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		public function update_views_ajax(){
+./wynikiUpdateViewsAjax.txt:./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		} // end update_views_ajax
+./wynikiUpdateViewsAjax.txt:./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&wpp_id=<?php echo $this->current_post_id; ?>';

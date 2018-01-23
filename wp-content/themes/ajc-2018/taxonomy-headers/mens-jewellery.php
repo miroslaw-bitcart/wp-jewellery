@@ -1,0 +1,1 @@
+<img src="<?php bloginfo('template_directory'); ?>/images/banners/mens-jewellery.jpg" alt="Mens Jewellery">

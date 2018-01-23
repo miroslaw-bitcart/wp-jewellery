@@ -1,0 +1,213 @@
+/* Queries */
+
+@include media("<tablet") {
+  header, .mobile-nav, .account, .banner { display: none; }
+  .free-services {
+    background: #303d67;
+    color: #fff;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@include media(">tablet") {
+  header { border: none; }
+  .utility { 
+    border-top: 0.25em solid #4f669a; 
+    padding-top: 12px;
+  }
+  .mobile-nav { display: none; }
+  .ion-navicon, .icon-shopping-cart { display: none; }
+  .site-title { 
+    margin-top: -1em; 
+    img { width: 65px; height: 30px; }
+  }
+}
+
+@include media(">desktop-sml") {
+  .site-title img {
+    width: 100%;
+    height: auto;
+    padding: 0;
+  }
+}
+
+/* Free Services */
+
+.free-services { 
+  @extend .subheading;
+  z-index: 9999;
+  color: $ajc_blue; 
+  padding-top: 12px; 
+  font-size: 10px;
+}
+
+/* Account */
+
+.account {
+  font-size: 14px;
+  text-align: right;
+  height: 2.75em;
+  ul {
+    display: inline-block;
+    position: relative;
+    z-index: 999;
+    li { 
+      float: left; 
+      ul {
+        display: none;
+        background-color: #fff;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        li { 
+          float: none; text-align: left; 
+          span { position: absolute; font-size: 1em; left: 1em; top: 0.2em; color: $ajc_light_grey; } 
+          > a { 
+            height: 36px !important; line-height: 36px !important; text-transform: none; letter-spacing: 0; padding: 0 12px !important; color: $grey-dark; 
+            &:hover { background-color: $ajc_lighter_grey; span { color: #ccc; } }
+          }
+        }
+      }
+      a {
+        color: $grey-dark;
+        &:hover { color: $ajc_blue; overflow: hidden; text-decoration: none; background-color: #fff; }
+      }
+      &.user a span { padding-left: 10px; font-size: 10px; }
+      &:hover > ul {  display: block; }
+      &.dropdown {
+        ul { 
+          position: absolute;
+          top: 39px;
+          right: 0;
+          width: 250px;
+          background-color: #fff;
+          z-index: 999999;
+          border-left: 1px solid #eee;
+          border-bottom: 1px solid #eee;
+          border-right: none;
+          a { 
+            height: auto !important; padding: 1em !important;
+            img { display: block; }
+            &:hover { background-color: #fff; }
+          }
+        }
+        span { margin-left: 8px; font-size: 0.75em; }
+        a { font-style: italic; color: $ajc_blue; &:hover { background-color: #fff; } }
+      }
+    }
+  }
+}
+
+/* Site Title */
+
+.site-title {
+  padding: 0 0 1em 0;
+  display: inline-block;
+  small a { padding: 9px; &:hover { background: #fff; } }
+  img { 
+    display: block; 
+    @include media(">tablet", "<=desktop-med") {
+      height: 56px; width: 240px;
+    }
+    @include media(">desktop-med", "<=desktop-lg") {
+      height: 65px; width: 277px;
+    }
+    @include media(">desktop-lg") {
+      height: 90px; width: 383px;
+    }
+  }
+}
+
+.banner { 
+  position: absolute; top: 0.5em; 
+  &.search { 
+    top: 18px;
+    font-size: 18px;
+    color: $grey-med;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    .ion-search { font-size: 18px; }
+    span { padding: 0 10px 0 0; }
+  }
+  &.right { text-align: right; }
+  @include media(">tablet", "<=tablet-lg") {
+    &.left { left: 1em; }
+    &.right { left: 1em; }
+  }
+  @include media(">tablet-lg") {
+    &.left { left: 24px; }
+    &.right { right: 1.5em; }
+  }
+  h2, h4 { 
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1em;
+  }
+  a { font-size: 0.875em; color: $grey-dark; margin-top: 5px; font-weight: 400; display: block; }
+  h2 { font-size: 1.5em; letter-spacing: 0; }
+  h4 { font-size: 0.75em; }
+  p { margin: 0; }
+  img { margin-top: 1em; }
+  span { padding-left: 0.5em; font-size: 0.666em; }
+  fieldset {  float: left; border: 1px solid #eee; }
+}
+
+
+
+/* line 495, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+header .banner fieldset input, header .banner fieldset button {
+  float: left;
+  font-family: $ajc-body;
+  font-size: 1em;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+}
+
+/* line 498, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+header .banner fieldset input[type="text"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 48px 0 12px;
+  color: $grey-dark;
+}
+
+/* line 503, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+header .banner fieldset input[type="text"]:focus {
+  background-color: #fff;
+}
+
+/* line 506, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+header .banner fieldset button {
+  position: absolute;
+  right: 2px;
+  padding: 0;
+  background-color: #fff;
+  height: 42px;
+  width: 42px;
+  color: #bbb;
+  font-size: 16px !important;
+}
+
+@media screen and (min-width: 24em) and (max-width: 35.9375em) {
+  /* line 492, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+  header .banner fieldset {
+    margin-left: 3em;
+  }
+}
+
+@media screen and (min-width: 48em) and (max-width: 59.9375em) {
+  /* line 492, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+  header .banner fieldset {
+    width: 14em;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  /* line 492, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+  header .banner fieldset {
+    width: 17em;
+  }
+}

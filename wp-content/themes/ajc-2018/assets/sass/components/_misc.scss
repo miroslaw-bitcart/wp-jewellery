@@ -1,0 +1,27 @@
+/* Spinners */
+
+#tab-loading {
+  position: absolute;
+  left: 48.5%;
+  top: 4em;
+}
+
+@media screen and (max-width: 35.9375em) {
+  #tab-loading {
+    top: 8em;
+  }
+}
+
+/* Hover Effects */
+
+.hvr-grow {
+  -moz-transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  &:hover, &:focus, &:active {
+    -moz-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,224 @@
+footer {
+  width: 100%;
+  background-color: #f6f6f6;
+  position: relative;
+  z-index: 2;
+  padding: 1em 0;
+  h4 {
+    font-size: 8px !important;
+    font-family: $ajc-subheading;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  a {
+    color: $grey-dark;
+    &:hover {
+      color: $ajc-blue;
+      text-decoration: none;
+    }
+  }
+  span {
+    font-size: 2em;
+    margin: 0.5em 0.5em 0 0.5em;
+  }
+  .subscribe {
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    div {
+      position: relative;
+      img {
+        position: absolute;
+        bottom: -2.5em;
+        left: -4em;
+      }
+      p {
+        margin-bottom: 0.75em;
+        font-family: $ajc-heading;
+        font-weight: 400;
+        font-size: 1.25em;
+      }
+    }
+    fieldset input {
+      padding: 0.5em 0.666em;
+      &:first-child {
+        width: 24em;
+      }
+      &:last-child {
+        margin-left: -4px;
+      }
+    }
+  }
+  .social-links a:hover {
+    text-decoration: none;
+  }
+  .footer-summary {
+    a {
+      color: $ajc-blue;
+    }
+    .copyright {
+      font-size: 0.75em;
+    }
+    form {
+      width: 100%;
+      margin-bottom: 1em;
+      display: inline-block;
+      fieldset {
+        position: relative;
+        width: 100%;
+        border: 1px solid #eee;
+        float: left;
+        span {
+          margin: 0;
+        }
+        input, button {
+          float: left;
+          font-family: $ajc-body;
+          font-size: 1em;
+          color: #fff;
+          border: none;
+          border-radius: 0;
+        }
+        input[type="text"] {
+          width: 100%;
+          height: 48px;
+          padding: 0 60px 0 12px;
+          color: $grey-dark;
+          &:focus {
+            background-color: #fff;
+          }
+        }
+        button {
+          position: absolute;
+          right: 0;
+          padding: 0 16px;
+          background-color: #fff;
+          height: 48px;
+          color: #777777;
+          font-size: 24px !important;
+        }
+      }
+    }
+  }
+  .footer-sections {
+    a {
+      display: block;
+    }
+    .social-links {
+      display: block;
+      float: left;
+      margin-right: 2.35765%;
+      width: 100%;
+      padding-top: 2em;
+      &:last-child {
+        margin-right: 0;
+      }
+      .cards span {
+        float: left;
+        color: #aaa;
+        font-size: 24px;
+        line-height: 32px;
+        margin: 0 12px 0 0;
+      }
+      h4 {
+        float: left;
+        line-height: 4em;
+        color: $grey-dark;
+        margin-right: 0.5em;
+      }
+      a {
+        float: left;
+        line-height: 1em;
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  footer .subscribe {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 36em) {
+  footer .footer-summary form {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  footer {
+    .footer-sections {
+      display: none;
+    }
+    .footer-summary {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (min-width: 36em) and (max-width: 59.9375em) {
+  footer {
+    .footer-sections {
+      display: block;
+      float: left;
+      margin-right: 2.35765%;
+      width: 100%;
+      &:last-child, &:nth-child(n) {
+        margin-right: 0;
+      }
+      li {
+        display: block;
+        float: left;
+        margin-right: 2.35765%;
+        width: 23.23176%;
+        &:last-child, &:nth-child(4n) {
+          margin-right: 0;
+        }
+      }
+    }
+    .footer-summary {
+      display: none;
+    }
+  }
+}
+
+@media screen and (min-width: 60em) {
+  footer {
+    padding: 2em 0;
+    .footer-summary {
+      display: block;
+      float: left;
+      margin-right: 2.35765%;
+      width: 31.76157%;
+      padding-right: 1em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .footer-sections {
+      display: block;
+      float: left;
+      margin-right: 2.35765%;
+      width: 65.88078%;
+      &:last-child {
+        margin-right: 0;
+      }
+      li {
+        display: block;
+        float: left;
+        margin-right: 3.57866%;
+        width: 22.316%;
+        &:last-child, &:nth-child(4n) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

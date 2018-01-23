@@ -1,0 +1,652 @@
+/* line 287, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+
+.woocommerce-message-container {
+  position: absolute;
+  top: -9.75em;
+  right: 0;
+  .woocommerce-message {
+    background-color: #f2f2f2;
+    position: relative;
+    z-index: 999;
+    width: 12em;
+    :before {
+      content: "";
+      border-color: #ddd transparent transparent transparent;
+      border-left: 1em solid transparent;
+      border-right: 1em solid transparent;
+      border-bottom: 1em solid #f2f2f2;
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: -0.888em;
+      right: 2.5em;
+    }
+  }
+}
+.woocommerce-message, .woocommerce-error, .tn_message.success {
+  padding: 16px !important;
+  text-align: center;
+  margin: 0 0 16px 0 !important;
+  border-bottom: 1px double #eee;
+  /* temp */
+}
+
+.woocommerce-message a, .woocommerce-error a, .tn_message.success a {
+  display: block;
+}
+
+.woocommerce-message {
+  .button, button {
+    display: none;
+  }
+}
+
+.woocommerce-error {
+  .button, button {
+    display: none;
+  }
+}
+
+.tn_message.success {
+  .button, button {
+    display: none;
+  }
+}
+
+.woocommerce-message span, .woocommerce-error span, .tn_message.success span {
+  padding-left: 0.5em;
+  font-size: 0.666em;
+}
+
+.woocommerce #payment, .woocommerce-page #payment {
+  padding: 1.5em;
+  background-color: #f6f6f6;
+}
+
+@media screen and (max-width: 47.9375em) {
+  .woocommerce #payment, .woocommerce-page #payment {
+    padding: 1em;
+  }
+}
+
+.woocommerce #payment img, .woocommerce-page #payment img {
+  width: auto;
+}
+
+.woocommerce #payment li, .woocommerce-page #payment li {
+  position: relative;
+}
+
+.woocommerce #payment {
+  ul.payment_methods:after, .woocommerce-page #payment ul.payment_methods:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.woocommerce-page #payment {
+  ul.payment_methods:after, .woocommerce-page #payment ul.payment_methods:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+.woocommerce #payment ul.payment_methods li label, .woocommerce-page #payment ul.payment_methods li label {
+  position: relative !important;
+}
+
+.woocommerce #payment {
+  ul.payment_methods li input, .woocommerce-page #payment ul.payment_methods li input {
+    margin: 0 1em 0 0;
+  }
+}
+
+.woocommerce-page #payment {
+  ul.payment_methods li input, .woocommerce-page #payment ul.payment_methods li input {
+    margin: 0 1em 0 0;
+  }
+}
+
+.woocommerce #payment {
+  ul.payment_methods li img, .woocommerce-page #payment ul.payment_methods li img {
+    height: 23px;
+    position: absolute;
+    top: 2px;
+    left: 6em;
+    margin: 0;
+  }
+}
+
+.woocommerce-page #payment {
+  ul.payment_methods li img, .woocommerce-page #payment ul.payment_methods li img {
+    height: 23px;
+    position: absolute;
+    top: 2px;
+    left: 6em;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .woocommerce #payment {
+    ul.payment_methods li img, .woocommerce-page #payment ul.payment_methods li img {
+      position: inherit;
+      left: 0;
+      float: right;
+      height: 18px;
+    }
+  }
+  .woocommerce-page #payment {
+    ul.payment_methods li img, .woocommerce-page #payment ul.payment_methods li img {
+      position: inherit;
+      left: 0;
+      float: right;
+      height: 18px;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.form-row, .woocommerce-page #payment div.form-row {
+    padding: 1em 0;
+  }
+}
+
+.woocommerce-page #payment {
+  div.form-row, .woocommerce-page #payment div.form-row {
+    padding: 1em 0;
+  }
+}
+
+.woocommerce #payment input#place_order, .woocommerce-page #payment input#place_order {
+  height: 60px;
+  padding: 0 36px;
+}
+
+.woocommerce #payment p.go, .woocommerce-page #payment p.go {
+  background-color: #000;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 47.9375em) {
+  .woocommerce #payment input#place_order, .woocommerce-page #payment input#place_order {
+    width: 100%;
+  }
+}
+
+.woocommerce #payment {
+  .terms, .woocommerce-page #payment .terms {
+    padding-bottom: 2em;
+  }
+}
+
+.woocommerce-page #payment {
+  .terms, .woocommerce-page #payment .terms {
+    padding-bottom: 2em;
+  }
+}
+
+.woocommerce #payment {
+  .terms a, .woocommerce-page #payment .terms a {
+    color: $grey-dark;
+    text-decoration: underline;
+  }
+}
+
+.woocommerce-page #payment {
+  .terms a, .woocommerce-page #payment .terms a {
+    color: $grey-dark;
+    text-decoration: underline;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box, .woocommerce-page #payment div.payment_box {
+    font-size: 1em;
+    position: relative;
+    width: 100%;
+    float: left;
+    padding: 2em;
+    margin: 1em 0;
+    background: #f0f0f0;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box, .woocommerce-page #payment div.payment_box {
+    font-size: 1em;
+    position: relative;
+    width: 100%;
+    float: left;
+    padding: 2em;
+    margin: 1em 0;
+    background: #f0f0f0;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .woocommerce #payment {
+    div.payment_box, .woocommerce-page #payment div.payment_box {
+      padding: 16px;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box, .woocommerce-page #payment div.payment_box {
+      padding: 16px;
+    }
+  }
+  .woocommerce #payment {
+    div.payment_box .two-thirds, .woocommerce-page #payment div.payment_box .two-thirds {
+      width: 100%;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box .two-thirds, .woocommerce-page #payment div.payment_box .two-thirds {
+      width: 100%;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box p, .woocommerce-page #payment div.payment_box p {
+    margin-bottom: 0.75em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box p, .woocommerce-page #payment div.payment_box p {
+    margin-bottom: 0.75em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box p:last-child, .woocommerce-page #payment div.payment_box p:last-child {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box p:last-child, .woocommerce-page #payment div.payment_box p:last-child {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box:after, .woocommerce-page #payment div.payment_box:after {
+    content: "";
+    display: block;
+    border: 8px solid #f0f0f0;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    position: absolute;
+    top: -1em;
+    left: 0;
+    margin: 0 0 0 2em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box:after, .woocommerce-page #payment div.payment_box:after {
+    content: "";
+    display: block;
+    border: 8px solid #f0f0f0;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    position: absolute;
+    top: -1em;
+    left: 0;
+    margin: 0 0 0 2em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box .security, .woocommerce-page #payment div.payment_box .security {
+    font-size: 0.875em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box .security, .woocommerce-page #payment div.payment_box .security {
+    font-size: 0.875em;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .woocommerce #payment {
+    div.payment_box .security, .woocommerce-page #payment div.payment_box .security {
+      display: none;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box .security, .woocommerce-page #payment div.payment_box .security {
+      display: none;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box .security span, .woocommerce-page #payment div.payment_box .security span {
+    margin-right: 0.5em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box .security span, .woocommerce-page #payment div.payment_box .security span {
+    margin-right: 0.5em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box .security h3, .woocommerce-page #payment div.payment_box .security h3 {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: $ajc-subheading;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box .security h3, .woocommerce-page #payment div.payment_box .security h3 {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: $ajc-subheading;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset, .woocommerce-page #payment div.payment_box fieldset {
+    margin-top: 1em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset, .woocommerce-page #payment div.payment_box fieldset {
+    margin-top: 1em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset {
+    label, input, select {
+      float: left;
+    }
+  }
+  .woocommerce-page #payment div.payment_box fieldset {
+    label, input, select {
+      float: left;
+    }
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset {
+    label, input, select {
+      float: left;
+    }
+  }
+  .woocommerce-page #payment div.payment_box fieldset {
+    label, input, select {
+      float: left;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset select, .woocommerce-page #payment div.payment_box fieldset select {
+    width: 9em;
+    margin: 0 15px 0 0;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset select, .woocommerce-page #payment div.payment_box fieldset select {
+    width: 9em;
+    margin: 0 15px 0 0;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .woocommerce #payment {
+    div.payment_box fieldset select, .woocommerce-page #payment div.payment_box fieldset select {
+      width: 100%;
+      margin: 0 0 0.5em 0;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box fieldset select, .woocommerce-page #payment div.payment_box fieldset select {
+      width: 100%;
+      margin: 0 0 0.5em 0;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset label, .woocommerce-page #payment div.payment_box fieldset label {
+    width: 8em;
+    margin-top: 0.5em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset label, .woocommerce-page #payment div.payment_box fieldset label {
+    width: 8em;
+    margin-top: 0.5em;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .woocommerce #payment {
+    div.payment_box fieldset label, .woocommerce-page #payment div.payment_box fieldset label {
+      margin-bottom: 0.5em;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box fieldset label, .woocommerce-page #payment div.payment_box fieldset label {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset input, .woocommerce-page #payment div.payment_box fieldset input {
+    width: 18em;
+    padding: 0.4em;
+    background-color: #f6f6f6;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset input, .woocommerce-page #payment div.payment_box fieldset input {
+    width: 18em;
+    padding: 0.4em;
+    background-color: #f6f6f6;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .woocommerce #payment {
+    div.payment_box fieldset input, .woocommerce-page #payment div.payment_box fieldset input {
+      width: 100%;
+    }
+  }
+  .woocommerce-page #payment {
+    div.payment_box fieldset input, .woocommerce-page #payment div.payment_box fieldset input {
+      width: 100%;
+    }
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box fieldset input#paypal_pro_card_csc, .woocommerce-page #payment div.payment_box fieldset input#paypal_pro_card_csc {
+    width: 4em;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box fieldset input#paypal_pro_card_csc, .woocommerce-page #payment div.payment_box fieldset input#paypal_pro_card_csc {
+    width: 4em;
+  }
+}
+
+.woocommerce #payment {
+  div.payment_box span.help, .woocommerce-page #payment div.payment_box span.help {
+    font-size: 0.875em;
+    line-height: 3em;
+    color: #999;
+  }
+}
+
+.woocommerce-page #payment {
+  div.payment_box span.help, .woocommerce-page #payment div.payment_box span.help {
+    font-size: 0.875em;
+    line-height: 3em;
+    color: #999;
+  }
+}
+
+/* Pagination */
+
+.woocommerce-ordering {
+  float: right;
+  margin: 16px 16px 0 0;
+  height: 36px;
+  font-size: 14px;
+  border: 1px solid #eee;
+  border-radius: 0;
+  background: url(../images/misc/chevron-down.jpg) no-repeat 93% 50%;
+  background-size: 9px 5px;
+  select {
+    padding: 0 24px 0 12px;
+    height: 36px;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    font-size: 14px;
+    font-family: $ajc-body;
+    -moz-appearance: none;
+    appearance: none;
+    &:hover {
+      cursor: pointer;
+    }
+    &:focus {
+      outline: none;
+    }
+    option {
+      font-size: 12px;
+    }
+  }
+}
+
+.woocommerce-result-count {
+  float: left;
+  padding: 16px 0 0 16px;
+  font-size: 12px;
+  margin: 0;
+}
+
+.woocommerce-pagination {
+  display: inline-block;
+  ul.page-numbers {
+    border: 1px solid #ddd;
+    float: left;
+    margin-bottom: 1em;
+    li {
+      width: auto !important;
+      margin: 0 !important;
+      a {
+        font-family: $ajc-subheading;
+        float: left;
+        padding: 10px 0;
+        width: 48px;
+        text-align: center;
+        font-size: 13px;
+        color: #777777;
+        border-left: 1px solid #ddd;
+        &:hover {
+          color: $grey-dark;
+          background-color: $ajc_lighter_grey;
+        }
+        &.prev {
+          border: none;
+          font-size: 9px;
+        }
+        &.next {
+          font-size: 9px;
+        }
+      }
+      .page-numbers.current {
+        background-color: #f6f6f6;
+        border-left: 1px solid #ddd;
+        font-family: $ajc-subheading;
+        font-size: 13px;
+        padding: 10px 0;
+        width: 48px;
+        float: left;
+        color: #333;
+      }
+    }
+  }
+  .dots {
+    color: #aaa;
+    padding-right: 6px;
+    line-height: 34px;
+    margin-left: -6px;
+  }
+  .view-all {
+    float: left;
+    padding: 10px 18px;
+    color: #777777;
+    font-family: $ajc-subheading;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    &:hover {
+      color: $grey-dark;
+      background-color: $ajc_lighter_grey;
+    }
+  }
+}
+
+.view-less {
+  float: right;
+  padding: 0 8px;
+  line-height: 32px;
+  height: 32px;
+  margin: 16px 16px 0 0;
+  border: 1px solid #aaa;
+  font-family: $ajc-subheading;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 8px;
+  font-style: normal;
+  color: $grey-dark;
+  a {
+    color: $grey-dark;
+  }
+}

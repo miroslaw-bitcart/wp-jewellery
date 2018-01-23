@@ -1,0 +1,538 @@
+.modal-backdrop {
+  z-index: 99999;
+}
+
+.modal {
+  z-index: 99999999;
+
+  /* Quick View */
+
+  &.video .modal-content .modal-body {
+    padding: 1em;
+  }
+  .product .product-description .description .specifications .spec_title {
+    font-size: 7px !important;
+  }
+  &#login, &#signup {
+    text-align: center;
+  }
+  &#login .modal-header, &#signup .modal-header {
+    padding: 1em;
+  }
+  &#login .site-title, &#signup .site-title {
+    padding: 0;
+    font-size: 0.875em;
+  }
+  &#login input, &#signup input {
+    width: 100%;
+  }
+  &#product {
+    .entry-title {
+      margin: 0 0.875em 0.5em 0;
+    }
+    .modal-header {
+      padding: 0;
+      text-align: left;
+      h2 {
+        font-size: 24px;
+      }
+      h3 {
+        font-size: 18px;
+        line-height: 36px;
+        color: $grey-dark;
+        font-style: italic;
+        em {
+          font-family: georgia;
+          font-size: 0.75em;
+        }
+      }
+    }
+    .product-description {
+      #cart-buttons {
+        margin: 0;
+        li {
+          width: 49%;
+          &:last-child {
+            margin: 0;
+          }
+        }
+        a {
+          padding-right: 30px;
+        }
+        span {
+          font-size: 12px;
+        }
+        .button, button {
+          margin-bottom: 0;
+        }
+      }
+      .description .specifications {
+        line-height: 1.5em;
+        margin-top: 1.5em;
+      }
+    }
+  }
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+    iframe, embed, object {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .modal-content {
+    box-shadow: none;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    font-size: 0.875em;
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .modal-header, .modal-body {
+      padding: 2em;
+    }
+    .modal-header {
+      padding: 2em;
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    }
+    .modal-body:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .modal-header {
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      h1 {
+        margin-bottom: 0.5em;
+      }
+      h3 {
+        font-size: 1.125em;
+        margin-right: 2em;
+        color: #777777;
+      }
+      img {
+        display: block;
+        width: 100px;
+        height: 75px;
+      }
+      .image, .headings {
+        text-align: left;
+        float: left;
+        width: 80%;
+      }
+      .image em, .headings em {
+        font-family: georgia;
+        font-size: 0.75em;
+      }
+      .image {
+        width: 20%;
+      }
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #eeeeee;
+        font-size: 36px;
+        text-align: center;
+        &:hover {
+          color: #777777;
+        }
+      }
+      &.viewing {
+        height: 120px;
+        background: url(../images/misc/viewing-header.jpg) repeat center center;
+        padding: 1em 10em;
+        border-bottom: 1px solid #eee;
+        h3 {
+          font-size: 1.25em;
+          margin: 0 0 1em 0;
+        }
+      }
+      &.guarantee {
+        background: url(../images/misc/tile.png) repeat center center;
+        background-size: 60px 60px;
+      }
+    }
+    .modal-body {
+      .col {
+        width: 50%;
+        float: left;
+        h2 {
+          font-size: 2.25em;
+          font-family: $ajc-heading;
+          font-weight: 400;
+          margin-bottom: 0.5em;
+        }
+      }
+      h3 {
+        font-size: 1.5em;
+        margin-bottom: 1em;
+        &:last-child {
+          margin: 0;
+        }
+      }
+      .indented {
+        margin-left: -2em;
+        margin-top: -2em;
+      }
+      &.highlighted {
+        background-color: #F0F3FA;
+      }
+      &.delivery, &.returns {
+        background: url("../images/front-page/sunday-club.jpg") center center repeat;
+        background-size: 420px 280px;
+        padding: 6%;
+      }
+      &.ring-sizing {
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+        text-align: center;
+        table {
+          width: 100%;
+        }
+        th {
+          width: 20%;
+          color: #27408B;
+        }
+        td {
+          border-bottom: 1px solid #f6f6f6;
+        }
+      }
+      .notes li {
+        list-style-type: disc;
+        margin-left: 1em;
+        &.no-list {
+          list-style-type: none;
+        }
+      }
+      .product-images, .product-description {
+        width: 50% !important;
+      }
+      .product-images {
+        padding-right: 1em;
+        .zoom {
+          max-height: 60px;
+          overflow: hidden;
+          width: 23% !important;
+          margin: 1% !important;
+        }
+        .social {
+          float: left;
+        }
+      }
+      .product-description {
+        padding-left: 1em;
+        .headings {
+          width: 100%;
+        }
+        li {
+          line-height: 3em;
+        }
+        #cart-buttons {
+          float: left;
+          width: 100%;
+          li {
+            width: 48%;
+            button, .button {
+              width: 100%;
+            }
+          }
+        }
+        hgroup h1.product-title {
+          font-size: 1.6111em;
+        }
+      }
+      li {
+        line-height: 1.5em;
+        margin-bottom: 0.5em;
+      }
+    }
+    .modal-footer {
+      text-align: center;
+      font-size: 0.875em;
+      line-height: 1.5em;
+    }
+    img.block {
+      width: 100%;
+      height: auto;
+    }
+    h1, h2 {
+      font-size: 2.25em;
+      line-height: 1em;
+      font-family: $ajc-heading;
+      font-weight: 400;
+    }
+    h4 {
+      font-weight: bold;
+      font-size: 1.25em;
+    }
+    p {
+      margin-bottom: 1.5em;
+    }
+  }
+}
+
+@media screen and (max-width: 59.9375em) {
+  .modal .modal-dialog {
+    margin-top: 43px;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .modal .modal-content {
+    .modal-header, .modal-body, .modal-header {
+      padding: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .modal .modal-content .modal-header {
+    .image, .headings {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .modal .modal-content .modal-header .image {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .modal .modal-content .modal-header.viewing {
+    background: none;
+    padding: 1em;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 36em) {
+  .modal .modal-content .modal-body .col {
+    &:first-child {
+      padding-right: 1em;
+    }
+    &:last-child {
+      padding-left: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .modal .modal-content .modal-body .col {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 36em) {
+  .modal .modal-content p:last-child {
+    margin: 0;
+  }
+}
+
+#simplemodal-container {
+
+  &.modal-enquiry h3, &.modal-sold h3 {
+    margin-right: 1.5em;
+  }
+  &.modal-enquiry h3:first-child, &.modal-sold h3:first-child {
+    margin: 0;
+  }
+  &.modal-enquiry .headings, &.modal-viewing .headings, &.modal-sold .headings, &.modal-payments .headings, &.modal-delivery .headings, &.modal-guarantee .headings, &.modal-returns .headings, &.modal-rings .headings {
+    border: none;
+  }
+  &.modal-enquiry .description h3, &.modal-viewing .description h3, &.modal-sold .description h3, &.modal-payments .description h3, &.modal-delivery .description h3, &.modal-guarantee .description h3, &.modal-returns .description h3, &.modal-rings .description h3 {
+    font-weight: bold;
+  }
+  &.modal-viewing {
+    a.view-map {
+      font-size: 0.75em;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    p {
+      font-size: 1.125em;
+      &.small-space-below {
+        margin-bottom: 0.333em;
+      }
+    }
+  }
+  &.modal-delivery h3, &.modal-returns h3, &.modal-guarantee h3 {
+    font-size: 1.75em;
+    font-family: $ajc-heading;
+    font-weight: 400;
+  }
+  &.modal-returns {
+    .half {
+      float: none;
+    }
+    hr {
+      margin: 1em auto 1em auto;
+    }
+  }
+  &.modal-rings .ring-sizing {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    text-align: center;
+    th {
+      color: #27408B;
+      padding: 0.333em 0;
+      border-bottom: 2px solid #27408B;
+      text-align: center;
+    }
+    td {
+      border-bottom: 1px solid #EEE;
+      padding: 0.222em 0;
+      text-align: center;
+    }
+  }
+  &.modal-payments li {
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  #simplemodal-container {
+    padding: 0;
+  }
+}
+
+/* Log In */
+
+.modal-form {
+  label, input, textarea, select, button {
+    float: left;
+    width: 100%;
+    clear: both;
+  }
+  .button {
+    line-height: 48px;
+    margin: 0;
+  }
+  input, textarea, select {
+    margin-bottom: 1em;
+  }
+  &.track_order input.button {
+    margin: 0;
+  }
+}
+
+body .fancybox-opened .fancybox-skin {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: #fff !important;
+  font-family: $ajc-body;
+  color: #333;
+  font-size: 18px;
+}
+
+body .fancybox-overlay {
+  background-color: #fff;
+  background-image: none;
+}
+
+body .fancybox-overlay .fancybox-wrap .fancybox-skin {
+  -webkit-appearance: none;
+  box-shadow: none;
+  padding: 0 !important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  background-color: #fff !important;
+}
+
+body .fancybox-overlay .fancybox-wrap .fancybox-title {
+  text-align: center;
+  font-size: 1em;
+  font-family: $ajc-body;
+  font-weight: 400;
+  background-color: #fff;
+  text-shadow: none;
+  color: $grey-dark;
+  border-radius: 0;
+}
+
+body .fancybox-overlay .fancybox-wrap .fancybox-title span {
+  font-family: $ajc-heading;
+  font-weight: 400;
+  font-size: 1.125em;
+}
+
+body .fancybox-overlay .fancybox-wrap .fancybox-title .product-period {
+  font-family: $ajc-sans;
+  letter-spacing: 0.05em;
+  margin: 0 2em;
+  text-transform: uppercase;
+  color: #777777;
+  font-size: 0.8125em;
+}
+
+@media screen and (max-width: 35.9375em) {
+  body .fancybox-overlay .fancybox-wrap .fancybox-title .product-period, body .fancybox-overlay .fancybox-wrap .fancybox-title .product-price {
+    display: none;
+  }
+}
+
+body #fancybox-thumbs {
+  z-index: 999999;
+  border-top: 1px solid #eee;
+  padding: 0.5em 0;
+}
+
+body #fancybox-thumbs ul li {
+  margin-right: 1em;
+}
+
+body #fancybox-thumbs ul li a {
+  border: none;
+  background: none;
+}
+
+body .fancybox-close {
+  width: 1em;
+  height: 1em;
+  text-align: center;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+body .fancybox-close, body .fancybox-next span, body .fancybox-prev span {
+  font-size: 4em;
+  opacity: 0.4;
+  color: #aaa;
+  text-decoration: none;
+  background-image: none;
+}
+
+body .fancybox-close:hover, body .fancybox-next span:hover, body .fancybox-prev span:hover {
+  opacity: 1;
+}

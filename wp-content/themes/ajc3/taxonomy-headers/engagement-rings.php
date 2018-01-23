@@ -1,0 +1,1 @@
+<img src="<?php bloginfo('template_directory'); ?>/images/banners/engagement-rings.jpg" alt="Made in Britain">

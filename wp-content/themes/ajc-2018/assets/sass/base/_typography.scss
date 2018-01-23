@@ -1,0 +1,104 @@
+/* Fonts */
+
+/* Sackers Gothic */
+
+@font-face {
+  font-family: 'SackersGothicStd-Heavy';
+  src: url('../fonts/sackers/30E269_0_0.eot');src: url('../fonts/sackers/30E269_0_0.eot?#iefix') format('embedded-opentype'),url('../fonts/sackers/30E269_0_0.woff2') format('woff2'),url('../fonts/sackers/30E269_0_0.woff') format('woff'),url('../fonts/sackers/30E269_0_0.ttf') format('truetype');
+}
+
+/* Butler */
+
+@font-face {
+  font-family: 'butlerregular';
+  src: url("../fonts/butler/butler_regular-webfont.woff2") format("woff2"), url("../fonts/butler/butler_regular-webfont.woff") format("woff");
+}
+
+/* Butler Light */
+
+@font-face {
+  font-family: 'butler_light';
+  src: url("../fonts/butler/butler_light-webfont.woff2") format("woff2"), url("../fonts/butler/butler_light-webfont.woff") format("woff");
+}
+
+/* Butler Ultra Light */
+
+@font-face {
+  font-family: 'butler_ultra_light';
+  src: url("../fonts/butler/butler_ultra_light-webfont.woff2") format("woff2"), url("../fonts/butler/butler_ultra_light-webfont.woff") format("woff");
+}
+
+/* Ionicons */
+
+@font-face {
+  font-family: "Ionicons";
+  src: url("../fonts/ionicons//ionicons.eot?v=1.5.2");
+  src: url("../fonts/ionicons//ionicons.eot?v=1.5.2#iefix") format("embedded-opentype"), url("../fonts/ionicons//ionicons.ttf?v=1.5.2") format("truetype"), url("../fonts/ionicons//ionicons.woff?v=1.5.2") format("woff"), url("../fonts/ionicons//ionicons.svg?v=1.5.2#Ionicons") format("svg");
+}
+
+/* Payment Icons */
+
+@font-face {
+  font-family: 'PaymentFont';
+  src: url("../fonts/paymentfont/paymentfont-webfont.eot");
+  src: url("../fonts/paymentfont/paymentfont-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/paymentfont/paymentfont-webfont.woff") format("woff2"), url("../fonts/paymentfont/paymentfont-webfont.woff") format("woff"), url("../fonts/paymentfont/paymentfont-webfont.ttf") format("truetype"), url("../fonts/paymentfont/paymentfont-webfont.svg#paymentfont-webfont") format("svg");
+}
+
+/* Master font properties */
+
+body {
+  font-family: $ajc-body; 
+  font-size: 1em;
+  line-height: 24px;
+  color: $grey-dark;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5 {
+  font-family: $ajc-heading;
+  font-weight: 400;
+  line-height: 1.2em;
+}
+
+h1 { font-size: 2.625em; } //42px
+h2 { font-size: 1.875em; } //30px
+h3 { font-size: 1.3125em; } //21px
+h4 { font-size: 0.875em; } //14px
+
+hr { border: 0; height: 0.333em; }
+
+/* Subheadings */
+
+.subheading { 
+  font-family: $ajc-subheading;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* General */
+
+p { font-size: 16px; }
+small, .small { font-size: 14px; line-height: 18px; }
+em, .italic { font-style: italic; }
+strong, .strong { font-weight: bold; }
+
+/* Media Queries */
+
+@media screen and (min-width: 102em) {
+  body {
+    font-size: 1.125em;
+  }
+}
+
+@media screen and (min-width: 132em) {
+  body {
+    font-size: 1.25em;
+  }
+}
+
+@media screen and (min-width: 162em) {
+  body {
+    font-size: 1.5em;
+  }
+}

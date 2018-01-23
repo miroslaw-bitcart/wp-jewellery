@@ -1,0 +1,1 @@
+<img src="<?php bloginfo('template_directory'); ?>/images/banners/chains.jpg" alt="Chains">

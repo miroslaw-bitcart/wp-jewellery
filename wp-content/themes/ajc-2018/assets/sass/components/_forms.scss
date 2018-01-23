@@ -1,0 +1,102 @@
+input {
+  [type="checkbox"], [type="radio"] {
+    padding: 0;
+  }
+  [type="search"] {
+    -webkit-appearance: textfield;
+  }
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+input {
+  &[type="reset"], &[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+  }
+}
+
+form {
+  input {
+    &[type="text"]:focus, &[type="email"]:focus, &[type="password"]:focus {
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      border-color: #aaa;
+    }
+  }
+  input, textarea {
+    font-family: $ajc-body;
+    border: 1px solid #ddd;
+    padding: 0.666em;
+  }
+  input:hover, textarea:hover {
+    -webkit-transition: 0.25s;
+    -moz-transition: 0.25s;
+    -o-transition: 0.25s;
+    transition: 0.25s;
+  }
+  input:focus, textarea:focus {
+    -webkit-transition: background-color 0.5s linear;
+    -moz-transition: color 0.5s linear;
+    -o-transition: color 0.5s linear;
+    transition: color 0.5s linear;
+  }
+  input[type=submit], textarea[type=submit] {
+    color: $grey-dark;
+    -webkit-appearance: none;
+    background-color: #f2f2f2;
+    border: none;
+    text-align: center;
+  }
+  input[type=submit]:hover, textarea[type=submit]:hover {
+    cursor: pointer;
+  }
+  input[type="text"], input[type="email"] {
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  input {
+    &[type="text"]:focus, &[type="email"]:focus, &[type="password"]:focus {
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      border-color: #aaa;
+    }
+  }
+  .invalid {
+    border: 2px solid #ffcccc;
+  }
+  textarea {
+    overflow: auto;
+    vertical-align: top;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    &:focus {
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      border-color: #aaa;
+    }
+  }
+}
+
+/* Change Autocomplete styles in Chrome*/
+/* line 33, /Users/matthewgerrish/Sites/AJC/wp-content/themes/ajc-2016/assets/scss/main.scss */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #ddd;
+  -webkit-text-fill-color: #333;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 5000s ease-in-out 0s;
+}

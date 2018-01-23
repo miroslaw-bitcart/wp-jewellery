@@ -1,0 +1,97 @@
+/* Wrapper */
+
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* Content/Sidebar */
+
+aside {
+  background: red;
+  float: left;
+}
+
+.content {
+  background: blue;
+  float: left;
+}
+
+@include media(">tablet") {
+  aside { width: 20%; }
+  .content { 
+    background: yellow; 
+    width: 80%;
+  }
+}
+
+@include media("<tablet") {
+  aside, .content { width: 100%; }
+}
+
+
+
+/* Salvattore Masonry Block */
+
+.size-1of1 {
+  width: 100%;
+  margin: 0;
+}
+
+.size-1of2 {
+  width: 47.5%;
+  margin-right: 5%;
+  &:nth-child(2) {
+    margin-right: 0;
+  }
+}
+
+.size-1of3 {
+  width: 32%;
+  margin-right: 2%;
+  &:nth-child(3) {
+    margin-right: 0;
+  }
+}
+
+.size-1of4 {
+  width: 22%;
+  margin-right: 4%;
+  &:nth-child(4) {
+    margin-right: 0;
+  }
+}
+
+#page .main {
+
+  /* Sign up / Log In / Welcome Process */
+
+  /* Welcome Process */
+
+  .wrapper {
+
+    &.narrow {
+      padding: 1em;
+      max-width: 48em;
+      position: relative;
+      z-index: 2;
+      h1 {
+        margin-top: 0.5em;
+      }
+      h2 {
+        font-size: 1.6111em;
+        line-height: 1.2em;
+        margin-bottom: 0.333em;
+        padding-bottom: 0.333em;
+      }
+      h1, h2, h3 {
+        font-weight: 400;
+      }
+    }
+  }
+}

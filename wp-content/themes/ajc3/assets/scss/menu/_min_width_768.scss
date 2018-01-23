@@ -1,0 +1,9 @@
+#top {
+    .nav-btn { @include visuallyhidden; }
+}
+
+#nav {
+    .close-btn { @include visuallyhidden; }
+    .block-title { @include visuallyhidden; }
+    ul { text-align: center; white-space: nowrap; }
+}

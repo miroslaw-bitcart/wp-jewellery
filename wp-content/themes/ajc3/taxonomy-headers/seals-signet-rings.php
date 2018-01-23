@@ -1,0 +1,1 @@
+<img src="<?php bloginfo('template_directory'); ?>/images/banners/signet-rings.jpg" alt="Seals and Signet Rings">

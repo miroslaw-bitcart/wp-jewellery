@@ -1,0 +1,298 @@
+/* 3.17 Taxonomies */
+/* 3.18 Taxonomies general */
+
+.taxonomy-header {
+  text-align: center;
+  padding: 2em 1em;
+  h2 {
+    font-size: 42px;
+    line-height: 1em;
+    font-weight: 400;
+    font-family: $ajc-heading;
+  }
+  h3 {
+    line-height: 1.25em;
+    margin: 0;
+    font-size: 36px;
+  }
+  hr {
+    background-color: #222222;
+    height: 12px;
+    width: 6em;
+    margin: 0.5em 0 1em 0;
+  }
+  .after {
+    li {
+      padding: 0 1em;
+      display: inline-block;
+      padding: 0 1.5em;
+      font-family: $ajc-heading;
+      font-size: 18px;
+      line-height: 1.5em;
+    }
+    span {
+      padding-left: 8px;
+      font-size: 15px;
+    }
+  }
+  &.border-bottom {
+    margin: 0;
+  }
+  &.type {
+    float: left;
+    border-bottom: 1px solid #eee;
+  }
+  &.search {
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    border-left: none;
+  }
+  &.cart {
+    border-bottom: 1px solid #eee;
+    h2 {
+      font-size: 30px;
+    }
+  }
+  &.search {
+    font-family: $ajc-heading;
+  }
+  &.full-width {
+    background-position: center center;
+    &.tall {
+      height: 240px;
+    }
+    &.latest-finds {
+      color: #222222;
+      span {
+        font-size: 36px;
+      }
+    }
+    &.hot-100 {
+      color: #222222;
+      padding: 1em;
+      margin-bottom: 2em;
+      h2 {
+        font-family: $ajc-heading;
+        font-size: 48px;
+        line-height: 36px;
+        margin-bottom: 0;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+    }
+    &.editors-picks {
+      background-image: url("../images/headers/editors-picks2.png");
+      background-position: center left;
+      background-size: 140px 240px;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+    }
+    &.engagement-rings {
+      background-image: url("../images/headers/engagement-rings2.jpg");
+      text-align: center;
+      background-size: cover;
+      color: #fff;
+    }
+    &.our-world {
+      background-color: #37496f;
+      background-image: url("../images/headers/our-world.png"), url("../images/misc/tile.png");
+      background-repeat: repeat;
+    }
+    &.collection {
+      color: #222222;
+      .after li {
+        max-width: 600px;
+      }
+    }
+    &.collections {
+      background-color: $grey-dark;
+      background-image: url("../images/headers/collections.png"), url("../images/misc/tile.png");
+      background-repeat: repeat;
+    }
+    &.period {
+      margin: 0;
+      background-repeat: no-repeat;
+      &.georgian {
+        background-color: #b8d4bd;
+        background-image: url("../images/periods/banners/georgian.png");
+      }
+      &.victorian {
+        background-color: #cd4f52;
+        background-image: url("../images/periods/banners/victorian.png");
+      }
+      &.art-nouveau {
+        background-color: #000;
+        background-image: url("../images/periods/banners/art-nouveau.png");
+      }
+      &.edwardian {
+        background-color: #eee3da;
+        background-image: url("../images/periods/banners/edwardian.png");
+      }
+      &.art-deco {
+        background-color: #283592;
+        background-image: url("../images/periods/bannersart-deco.png");
+      }
+      &.retro {
+        background-color: #f9dd6f;
+        background-image: url("../images/periods/banners/retro.png");
+      }
+      &.mid-century {
+        background-color: #f7b1b9;
+        background-image: url("../images/periods/banners/mid-century.png");
+      }
+      &.modern {
+        background-color: #8cb87b;
+        background-image: url("../images/periods/banners/modern.png");
+      }
+    }
+  }
+  .dropdown {
+    position: absolute;
+    top: 32px;
+    left: 16px;
+    &.right .dropdown-menu {
+      width: 20em;
+      left: -250px;
+      padding: 1.5em;
+    }
+    &.open .dropdown-toggle {
+      background-color: #fff;
+      color: $grey-dark;
+    }
+    .dropdown-toggle {
+      text-align: left;
+      float: left;
+      color: #222222;
+      padding: 0 12px;
+      border: 1px solid #eee;
+      font-size: 14px;
+      height: 42px;
+      line-height: 42px;
+      width: 180px;
+      span {
+        font-size: 0.666em;
+        float: right;
+      }
+    }
+    .dropdown-menu {
+      width: 180px;
+      left: 0;
+      top: 41px;
+      border-left: 1px solid #eee;
+      border-top: none;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      border-radius: 0;
+      margin: 0;
+      font-size: 1em;
+      box-shadow: none;
+      > li > a {
+        padding: 4px 12px;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 35.9375em) {
+  .taxonomy-header h2 {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 59.9375em) {
+  .taxonomy-header.type {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .taxonomy-header.type {
+    width: 80%;
+    border-left: 1px solid #eee;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .taxonomy-header.search h3 {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .taxonomy-header.full-width.latest-finds span {
+    font-size: 24px;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.our-world {
+    background-image: url("../images/headers/our-world_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.collections {
+    background-image: url("../images/headers/collections_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period {
+    background-size: 1200px 175px;
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.georgian {
+    background-image: url("../images/periods/banners/georgian_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.victorian {
+    background-image: url("../images/periods/banners/victorian_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.art-nouveau {
+    background-image: url("../images/periods/banners/art-nouveau_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.edwardian {
+    background-image: url("../images/periods/banners/edwardian_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.art-deco {
+    background-image: url("../images/periods/banners/art-deco_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.retro {
+    background-image: url("../images/periods/banners/retro_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.mid-century {
+    background-image: url("../images/periods/banners/mid-century_2x.png");
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .taxonomy-header.full-width.period.modern {
+    background-image: url("../images/periods/banners/modern_2x.png");
+  }
+}
+
+@media screen and (max-width: 47.9375em) {
+  .taxonomy-header .dropdown {
+    display: none;
+  }
+}

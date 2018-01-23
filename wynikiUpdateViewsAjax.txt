@@ -1,0 +1,5 @@
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_update_views_ajax', array($this, 'update_views_ajax') );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:					add_action( 'wp_ajax_nopriv_update_views_ajax', array($this, 'update_views_ajax') );
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		public function update_views_ajax(){
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:		} // end update_views_ajax
+./wp-content/plugins/wordpress-popular-posts/wordpress-popular-posts.php:						params = 'action=update_views_ajax&token=<?php echo wp_create_nonce('wpp-token') ?>&wpp_id=<?php echo $this->current_post_id; ?>';

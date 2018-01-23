@@ -1,0 +1,286 @@
+html, body { 
+  overflow-x: hidden;
+  height: 100%;
+  min-height: 100%;
+  height: auto !important;
+}
+
+.med-grey { color: #777777; }
+.red { color: #f5303e; }
+.blue { color: $ajc-blue; }
+.light-grey-background { background-color: #f2f2f2; }
+.light-grey-border { border: 0.888em solid #f2f2f2; }
+
+/* Layout blocks */
+
+.half {
+  width: 50%;
+  float: left;
+}
+
+.left-col {
+  width: 50%;
+  padding-right: 1em;
+  float: left;
+}
+
+.right-col {
+  width: 50%;
+  padding-left: 1em;
+  float: left;
+}
+
+.two-thirds {
+  width: 66%;
+}
+
+.third {
+  width: 34%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Positioning/display */
+
+.centered {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.alignleft {
+  float: left;
+  margin: 0 3.6% 0 0;
+}
+
+.alignright {
+  float: right;
+  margin: 0 0 0 3.6%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+/* Clearfix */
+
+.clearfix {
+  clear: both;
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+.hidden, .knockout-hidden {
+  display: none;
+}
+
+.scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+}
+
+*:focus {
+  outline: 0;
+}
+
+.autowidth {
+  width: auto;
+}
+
+/* Padding/margins/borders */
+
+.no-margin {
+  margin: 0;
+}
+
+.small-space-above {
+  margin-top: 0.333em;
+}
+
+.small-space-below {
+  margin-bottom: 0.333em;
+}
+
+.small-space-left {
+  margin-left: 0.333em;
+}
+
+.small-space-right {
+  margin-right: 0.333em;
+}
+
+.space-above, .woocommerce #payment, .woocommerce-page #payment {
+  margin-top: 1.6111em;
+}
+
+.space-below {
+  margin-bottom: 1.6111em;
+}
+
+.space-left {
+  margin-left: 1.6111em;
+}
+
+.space-right {
+  margin-right: 1.6111em;
+}
+
+.large-space-above {
+  margin-top: 3em;
+}
+
+.large-space-below {
+  margin-bottom: 3em;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.padding-top {
+  padding-top: 1.6111em;
+}
+
+.padding-bottom {
+  padding-bottom: 1.6111em;
+}
+
+.padding-left {
+  padding-left: 1.6111em;
+}
+
+.padding-right {
+  padding-right: 1.6111em;
+}
+
+.padded, .woocommerce-message-container .woocommerce-message {
+  padding: 1em;
+}
+
+.small-padded {
+  padding: 0.666em;
+}
+
+.content.checkout {
+  .login, .checkout_coupon {
+    padding: 0.666em;
+  }
+}
+
+.no-border {
+  border: none;
+}
+
+.border {
+  border: 1px solid #ddd;
+}
+
+.border-top {
+  border-top: 1px solid #eee;
+  margin-top: 1em;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1em;
+}
+
+.border-left {
+  border-left: 1px solid #ddd;
+}
+
+.border-right {
+  border-right: 1px solid #ddd;
+}
+
+.border-right-med {
+  border-right: 1px solid #777777;
+}
+
+.border-double-right {
+  border-right: 4px double #eeeeee;
+}
+
+.overflowhidden {
+  overflow: hidden;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  font-family: $ajc-sans;
+}
+
+.sans {
+  font-family: $ajc-sans;
+}
+
+.serif {
+  font-family: $ajc-body;
+}
+
+.sans-heading {
+  font-family: $ajc-sans;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.serif-normal {
+  font-family: $ajc-body;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}

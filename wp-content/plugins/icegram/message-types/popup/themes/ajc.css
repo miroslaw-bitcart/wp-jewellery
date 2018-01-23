@@ -1,0 +1,15 @@
+.popup.ajc.ig_container {position:relative;padding:2em;text-align:center;}
+.popup.ajc.ig_container p {margin:0;}
+.popup.ajc.ig_container img {max-width:100%;height:auto;}
+.popup.ajc .ig_headline {margin-bottom:0.5em;font-size:2.5em;color:#fff;}
+.popup.ajc .ig_image {float:right;}
+.popup.ajc .ig_message {color:#fff;font-size:1.2em;}
+.popup.ajc .ion-ios7-close-empty{position:absolute;top:-15px;right:-15px;cursor: pointer;font-size:5em;opacity:0.3;color:#fff;width:1em;height:1em;text-align: center;}
+.popup.ajc .ion-ios7-close-empty:hover {opacity:1;}
+.popup.ajc form {margin-top:1em;}
+.popup.ajc fieldset {width:100%;}
+.popup.ajc input {font-family:"minion-pro";padding:0.75em 1em;border:none;font-size:1.125em;float:left;margin:0;}
+.popup.ajc input#email {width:70%;background-color:#eee;}
+.popup.ajc input#subscribe {width:30%;background-color:#223358;color:#fff;}
+.popup.ajc #TB_ajaxContent{position:relative;display:block;background:#35476d url("http://www.antiquejewellerycompany.com/wp-content/themes/ajc2/assets/images/misc/tile.png") repeat;}
+.popup.ajc#TB_window:before {position:absolute;top:0;left:0;width:100%;height:100%;}

@@ -1,0 +1,135 @@
+<?php 
+	  global $product, $ajc_product; 
+      $terms = get_the_terms( get_the_ID(), 'period' ); 
+	  $period = !empty($terms) ? $terms[0] : ''; 
+	  $period = !empty($period) ? $period->name : '';
+	  
+	  echo '<!-- PRODUCT '. print_r($product,1). '-->'; 
+	  echo '<!-- AJC PRODUCT '. print_r($ajc_product,1). '-->'; 
+?>
+
+<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+        	<div class="modal-header">
+                <a class="close ion-ios7-close-empty" data-dismiss="modal"></a>
+    			<h1 itemprop="name"><?php the_title(); ?></h1>
+				
+				<!-- PHP to be done ***
+	            <h3 class="left sku"><em>Item No.</em> <?php echo $product->get_sku() ?></h3>
+				<h3 itemprop="left price" class="left">&pound;<?php echo $product->get_price() ?></h3>
+	            
+                <h3><span class="space-right"><?php echo $period ?></span> 
+                <em>Item No.</em><?php echo $product->get_sku() ?></h3>
+                *** -->
+        	</div>
+
+            <div class="modal-body">
+                <div class="col" data-gallery-setup="false">
+                	<?php the_post_thumbnail( 'product-medium' ); ?>
+                </div>
+                <div class="col">
+					<div itemprop="description" class="description clearfix">
+						<?php the_content(); ?>
+                   	</div>
+					<div class="space-above clearfix">
+						<form action="" id="cart-buttons" class="cart" method="post" enctype='multipart/form-data'>
+							<ul>
+								<li>
+								<a class="silver button left" href="<?php echo get_permalink(); ?>">Full details<span class="ion-ios7-arrow-forward"></span></a>
+								</li>
+								<li>
+								<button type="submit" class="black left"><?php echo apply_filters('single_add_to_cart_text', __('Add to bag', 'woocommerce'), $product->product_type); ?><span class="icon-plus"></span></button>
+								</li>
+							</ul>
+						</form>
+					</div>
+					<div class="date-added red">
+						<?php 
+						$posted = get_the_date( 'U' );
+						if( $posted > ( time() - 1209600 /* 14 days */ ) ) : 
+							$today = new DateTime();
+							$started = new DateTime();
+							$started->setTimestamp( $posted );
+							$difference = $started->diff( $today ); ?>
+							<?php if( $difference->d === 0 ) : ?>
+								<p class="right">&#43; Added Today</p>
+							<?php else : ?>
+								<p class="right">&#43; Added <?php echo $difference->d . ' ' . _n( 'day', 'days', $difference->d ); ?> ago</p>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php if( $views ) : ?><p class="left"><?php echo $views; ?> Admirers</p><?php endif; ?>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><?php 
+	  global $product, $ajc_product; 
+      $terms = get_the_terms( get_the_ID(), 'period' ); 
+	  $period = !empty($terms) ? $terms[0] : ''; 
+	  $period = !empty($period) ? $period->name : '';
+	  
+	  echo '<!-- PRODUCT '. print_r($product,1). '-->'; 
+	  echo '<!-- AJC PRODUCT '. print_r($ajc_product,1). '-->'; 
+?>
+
+<div class="modal fade" id="product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+        	<div class="modal-header">
+                <a class="close ion-ios7-close-empty" data-dismiss="modal"></a>
+    			<h1 itemprop="name"><?php the_title(); ?></h1>
+				
+				<!-- PHP to be done ***
+	            <h3 class="left sku"><em>Item No.</em> <?php echo $product->get_sku() ?></h3>
+				<h3 itemprop="left price" class="left">&pound;<?php echo $product->get_price() ?></h3>
+	            
+                <h3><span class="space-right"><?php echo $period ?></span> 
+                <em>Item No.</em><?php echo $product->get_sku() ?></h3>
+                *** -->
+        	</div>
+
+            <div class="modal-body">
+                <div class="col" data-gallery-setup="false">
+                	<?php the_post_thumbnail( 'product-medium' ); ?>
+                </div>
+                <div class="col">
+					<div itemprop="description" class="description clearfix">
+						<?php the_content(); ?>
+                   	</div>
+					<div class="space-above clearfix">
+						<form action="" id="cart-buttons" class="cart" method="post" enctype='multipart/form-data'>
+							<ul>
+								<li>
+								<a class="silver button left" href="<?php echo get_permalink(); ?>">Full details<span class="ion-ios7-arrow-forward"></span></a>
+								</li>
+								<li>
+								<button type="submit" class="black left"><?php echo apply_filters('single_add_to_cart_text', __('Add to bag', 'woocommerce'), $product->product_type); ?><span class="icon-plus"></span></button>
+								</li>
+							</ul>
+						</form>
+					</div>
+					<div class="date-added red">
+						<?php 
+						$posted = get_the_date( 'U' );
+						if( $posted > ( time() - 1209600 /* 14 days */ ) ) : 
+							$today = new DateTime();
+							$started = new DateTime();
+							$started->setTimestamp( $posted );
+							$difference = $started->diff( $today ); ?>
+							<?php if( $difference->d === 0 ) : ?>
+								<p class="right">&#43; Added Today</p>
+							<?php else : ?>
+								<p class="right">&#43; Added <?php echo $difference->d . ' ' . _n( 'day', 'days', $difference->d ); ?> ago</p>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php if( $views ) : ?><p class="left"><?php echo $views; ?> Admirers</p><?php endif; ?>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
