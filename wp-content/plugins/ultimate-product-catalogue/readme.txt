@@ -3,7 +3,7 @@ Contributors: Rustaurius, EtoileWebDesign
 Donate Link: http://www.etoilewebdesign.com/plugin-donations/
 Tags: product catalog, catalog, product, products, product catalogue, catalogue, catalogs, catalogues, product catalog wp, product catalog wordpress, product catalog import, product catalog export, best product catalog, product catalog ajax, product catalog shortcode, product catalog inventory, product catalog list, product catalog search, product catalog organization, product catalog easy, product catalog simple, product catalog smart, catalog for products, wp catalog, catalog of goods, blog catalog, catalog plugin, wp catalogue, catalogue plugin, display products, product portfolio, WordPress product catalog, woocommerce product catalog, woocommerce catalog, woocommerce checkout, woocommerce products
 Requires at least: 3.5.0
-Tested up to: 4.8
+Tested up to: 4.9
 License: GPLv3
 License URI:http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -311,6 +311,64 @@ Reordering Categories
 24. View of the labelling options
 
 == Changelog ==
+= 4.3.3 =
+- New product page style (Shop Style)
+- New sidebar style (Contemporary)
+- Removed references to JS and CSS files that are no longer used and that were appearing in the console
+
+= 4.3.2 =
+- Added in an option to delete many items from a catalog at once
+- Fixed an error where YouTube videos wouldn't play correctly for https sites
+
+= 4.3.1 =
+- Added in Ultimate WP Mail integration
+- Fixed an issue with empty custom fields being displayed in the sidebar after hiding/unhiding a product
+
+= 4.3.0 =
+- Added two new catalogue styles
+- Added in "Accepted values" to text and text area type custom fields that have input values
+
+= 4.2.27 =
+- Minor styling updates
+
+= 4.2.26 =
+- Removed an unserialize function
+
+= 4.2.25 =
+- Added in a couple more labeling options
+
+= 4.2.24 =
+- SEO Description and Product display status can now be set on spreadsheet upload
+- Multiple catalogue IDs can be included in spreadsheet uploads
+- Fixed a function naming conflict with another plugin
+
+= 4.2.23 =
+- Improved plugin admin AJAX performance
+
+= 4.2.22 =
+- Added nonces to a couple of admin forms that were missing them
+
+= 4.2.21 =
+- Fixed an issue with the background color of sub-categories with the dynamic disabling of sub-categories feature
+- Fixed an issue where an attribute was being overwritten on refresh
+- Improved the AJAX performance of the catalog slightly
+- Fixed an issue with uploading custom themes for the catalog
+- Fixed an issue with deleting the current file for file-type custom fields
+
+= 4.2.20 =
+- Fixed an issue where hidden products would display as related products
+- Fixed a number of issues with custom fields on the default product page
+- Fixed a problem where the mobile filtering menu button wouldn't display
+
+= 4.2.19 =
+- Fixed a few minor styling errors
+
+= 4.2.18 =
+- Fixed a few minor styling issues
+
+= 4.2.17 =
+- Fixed an error where custom fields weren't saving on product creation
+
 = 4.2.16 =
 - Fixed an error where catalog names weren't saving correctly (updated)
 

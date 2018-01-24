@@ -18,7 +18,7 @@ function UPCP_Rewrite_Rules() {
 		flush_rewrite_rules();
 }
 
-function add_query_vars_filter( $vars ){
+function UPCP_add_query_vars_filter( $vars ){
 	$vars[] = "single_product";
 	$vars[] = "product_id";
 	return $vars;

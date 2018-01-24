@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: All In One Schema.org Rich Snippets
+Plugin Name: All In One Schema Rich Snippets
 Plugin URI: https://www.brainstormforce.com
 Author: Brainstorm Force
 Author URI: https://www.brainstormforce.com
 Description: The All in One Rich Snippets gives the power to the blog author to control the rich snippets to be shown in the search results by the search engines.
-Version: 1.5.1
+Version: 1.5.2
 Text Domain: rich-snippets
 License: GPL2
 */
@@ -82,13 +82,17 @@ if ( !class_exists( "RichSnippets" ) )
 		function post_enqueue($hook) {
 			if( 'post.php' != $hook )
 				return;
+			$current_admin_screen = get_current_screen();
+			$exclude_custom_post_type = apply_filters( 'bsf_exclude_custom_post_type', array() );
+			if ( in_array( $current_admin_screen->post_type, $exclude_custom_post_type ) )
+				return;
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'bsf_jquery_star' );
 			wp_enqueue_script( 'bsf_toggle' );
 			wp_enqueue_style( 'star_style' );
 			wp_register_script( 'bsf-scripts', BSF_META_BOX_URL . 'js/cmb.js','', '0.9.1' );
 			wp_enqueue_script( 'bsf-scripts' );
-			wp_register_script( 'bsf-scripts-media', BSF_META_BOX_URL . 'js/media.js', '', '1.0' );
+			wp_register_script( 'bsf-scripts-media', BSF_META_BOX_URL . 'js/media.js', array( 'jquery', 'media-upload', 'media-editor' ), '1.0' );
 			wp_enqueue_script( 'bsf-scripts-media' );
 			wp_enqueue_script('jquery-ui-datepicker');
 			if(!function_exists('vc_map'))
@@ -97,13 +101,17 @@ if ( !class_exists( "RichSnippets" ) )
 		function post_new_enqueue($hook) {
 			if('post-new.php' != $hook )
 				return;
+			$current_admin_screen = get_current_screen();
+			$exclude_custom_post_type = apply_filters( 'bsf_exclude_custom_post_type', array() );
+			if ( in_array( $current_admin_screen->post_type, $exclude_custom_post_type ) )
+				return;
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'bsf_jquery_star' );
 			wp_enqueue_script( 'bsf_toggle' );
 			wp_enqueue_style( 'star_style' );
 			wp_register_script( 'bsf-scripts', BSF_META_BOX_URL . 'js/cmb.js', '', '0.9.1' );
 			wp_enqueue_script( 'bsf-scripts' );
-			wp_register_script( 'bsf-scripts-media', BSF_META_BOX_URL . 'js/media.js', '', '1.0' );
+			wp_register_script( 'bsf-scripts-media', BSF_META_BOX_URL . 'js/media.js', array( 'jquery', 'media-upload', 'media-editor' ), '1.0' );
 			wp_enqueue_script( 'bsf-scripts-media' );
 			wp_enqueue_script('jquery-ui-datepicker');
 			if(!function_exists('vc_map'))

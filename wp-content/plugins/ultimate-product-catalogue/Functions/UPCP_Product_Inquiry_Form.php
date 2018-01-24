@@ -144,4 +144,84 @@ This e-mail was sent from a contact form on ' . $Blogname . ' (' . $Site_URL . '
 	return $user_update;
 }
 
+function UPCP_Send_Inquiry_Submission_Emails($contact_form) {
+	$Inquiry_Form_Email = get_option("UPCP_Inquiry_Form_Email");
+
+	$Submission = WPCF7_Submission::get_instance();
+	$Data = $Submission->get_posted_data();
+	
+	$UPCP_Contact_Form = get_page_by_path('upcp-product-inquiry-form', OBJECT, 'wpcf7_contact_form');
+
+	$Form_ID = $Data['_wpcf7']; 
+	if ($Form_ID != $UPCP_Contact_Form->ID or $Inquiry_Form_Email == 0) {return;}
+
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	$plugin = "ultimate-wp-mail/Main.php";
+	$UWPM_Installed = is_plugin_active($plugin);
+
+	if ($UWPM_Installed) {
+		$Params = array(
+			'Email_ID' => $Inquiry_Form_Email,
+			'Email_Address' => $Data['your-email'],
+			'Name' => $Data['your-name'],
+			'Products' => $Data['product-name']
+		);
+
+		EWD_UWPM_Send_Email_To_Non_User($Params);
+	}
+}
+add_action('wpcf7_mail_sent', 'UPCP_Send_Inquiry_Submission_Emails');
+
+function EWD_UPCP_Add_UWPM_Element_Sections() {
+	if (function_exists('uwpm_register_custom_element_section')) {
+		uwpm_register_custom_element_section('ewd_upcp_uwpm_elements', array('label' => 'Product Catalog Tags'));
+	}
+}
+add_action('uwpm_register_custom_element_section', 'EWD_UPCP_Add_UWPM_Element_Sections');
+
+function EWD_UPCP_Add_UWPM_Elements() {
+	if (function_exists('uwpm_register_custom_element')) {
+
+		uwpm_register_custom_element('ewd_upcp_inquiry_name', 
+			array(
+				'label' => 'Inquiry Sender Name',
+				'callback_function' => 'EWD_UPCP_UWPM_Inquiry_Name',
+				'section' => 'ewd_upcp_uwpm_elements'
+			)
+		);
+		uwpm_register_custom_element('ewd_upcp_inquiry_email', 
+			array(
+				'label' => 'Inquiry Sender Email',
+				'callback_function' => 'EWD_UPCP_UWPM_Inquiry_Email',
+				'section' => 'ewd_upcp_uwpm_elements'
+			)
+		);
+		uwpm_register_custom_element('ewd_upcp_inquiry_products', 
+			array(
+				'label' => 'Inquiry Products',
+				'callback_function' => 'EWD_UPCP_UWPM_Inquiry_Products',
+				'section' => 'ewd_upcp_uwpm_elements'
+			)
+		);
+	}
+}
+add_action('uwpm_register_custom_element', 'EWD_UPCP_Add_UWPM_Elements');
+
+function EWD_UPCP_UWPM_Inquiry_Name($Params, $User) {
+	if (!isset($Params['Name'])) {return;}
+
+	return $Params['Name'];
+}
+
+function EWD_UPCP_UWPM_Inquiry_Email($Params, $User) {
+	if (!isset($Params['Email_Address'])) {return;}
+
+	return $Params['Email_Address'];
+}
+
+function EWD_UPCP_UWPM_Inquiry_Products($Params, $User) {
+	if (!isset($Params['Products'])) {return;}
+
+	return $Params['Products'];
+}
 ?>

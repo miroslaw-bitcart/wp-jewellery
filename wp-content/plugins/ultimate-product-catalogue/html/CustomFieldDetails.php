@@ -10,7 +10,7 @@
 						<form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_EditCustomField&DisplayPage=CustomFields" class="validate" enctype="multipart/form-data">
 						<input type="hidden" name="action" value="Edit_Custom_Field" />
 						<input type="hidden" name="Field_ID" value="<?php echo $Field->Field_ID; ?>" />
-						<?php wp_nonce_field(); ?>
+						<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 						<?php wp_referer_field(); ?>
 						<div class="form-field form-required">
 								<label for="Field_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

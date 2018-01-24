@@ -12,12 +12,12 @@
 
 		<div class="form-wrap ItemDetail upcp-product-details">
 			<a href="admin.php?page=UPCP-options&DisplayPage=Products" class="NoUnderline">&#171; <?php _e("Back", 'ultimate-product-catalogue') ?></a>
-			<h3>Edit  <?php echo $Product->Item_Name . " (ID:" . $Product->Item_ID . " )"; ?></h3><?php echo "Debug it: " . get_option("UPCP_WC_Debugging") . "<br>"; ?>
+			<h3>Edit  <?php echo $Product->Item_Name . " (ID:" . $Product->Item_ID . " )"; ?></h3>
 			<form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_EditProduct&Update_Item=Product&Item_ID=<?php echo $Product->Item_ID ?>" class="validate" enctype="multipart/form-data">
 			<input type="hidden" name="action" value="Edit_Product" />
 			<input type="hidden" name="Item_ID" value="<?php echo $Product->Item_ID; ?>" />
 			<input type="hidden" name="Item_WC_ID" value="<?php echo $Product->Item_WC_ID; ?>" />
-			<?php wp_nonce_field(); ?>
+			<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 			<?php wp_referer_field(); ?>
 			<table class="form-table">
 			<tr>
@@ -71,8 +71,8 @@
 			</tr>
 			<tr>
 				<th><label for="Item_Display_Status"><?php _e("Display Status", 'ultimate-product-catalogue') ?></label></th>
-				<td><label title='Show'><input type='radio' name='Item_Display_Status' value='Show' <?php if($Product->Item_Display_Status == "Show" or $Product->Item_Display_Status == "") {echo "checked='checked'";} ?>/> <span>Show</span></label><br />
-				<label title='Hide'><input type='radio' name='Item_Display_Status' value='Hide' <?php if($Product->Item_Display_Status == "Hide") {echo "checked='checked'";} ?>/> <span>Hide</span></label><br />
+				<td><label title='Show'><input type='radio' name='Item_Display_Status' value='Show' <?php if($Product->Item_Display_Status == "Show" or $Product->Item_Display_Status == "") {echo "checked='checked'";} ?>/> <span>Show</span></label>
+				<label title='Hide'><input type='radio' name='Item_Display_Status' value='Hide' <?php if($Product->Item_Display_Status == "Hide") {echo "checked='checked'";} ?>/> <span>Hide</span></label>
 				<p><?php _e("Should this item be displayed if it's added to a catalogue?", 'ultimate-product-catalogue') ?></p></td>
 			</tr>
 			<tr>
@@ -167,10 +167,14 @@
 				}
 				$ReturnString .= "<tr><th><label for='" . $Field->Field_Name . "'>" . $Field->Field_Name . ":</label></th>";
 				if ($Field->Field_Type == "text" or $Field->Field_Type == "mediumint") {
-		  		  $ReturnString .= "<td><input name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-text-input' type='text' value='" . htmlspecialchars($Value, ENT_QUOTES) . "' size='60' /></td>";
+		  		  $ReturnString .= "<td><input name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-text-input' type='text' value='" . htmlspecialchars($Value, ENT_QUOTES) . "' size='60' />";
+		  		  if ($Field->Field_Values != "") {$ReturnString .= "<br />" . __('Accepted values', 'ultimate-product-catalogue') . ": " . $Field->Field_Values;}
+		  		  $ReturnString .= "</td>";
 				}
 				elseif ($Field->Field_Type == "textarea") {
-					$ReturnString .= "<td><textarea name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-textarea' cols='60' rows='6'>" . $Value . "</textarea></td>";
+					$ReturnString .= "<td><textarea name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-textarea' cols='60' rows='6'>" . $Value . "</textarea>";
+					if ($Field->Field_Values != "") {$ReturnString .= "<br />" . __('Accepted values', 'ultimate-product-catalogue') . ": " . $Field->Field_Values;}
+		  		  $ReturnString .= "</td>";
 				} 
 				elseif ($Field->Field_Type == "select") { 
 					$Options = explode(",", $Field->Field_Values);

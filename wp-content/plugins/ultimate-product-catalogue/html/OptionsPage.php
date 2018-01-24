@@ -35,6 +35,7 @@
 	$Product_Comparison = get_option("UPCP_Product_Comparison");
 	$Product_Inquiry_Form = get_option("UPCP_Product_Inquiry_Form");
 	$Product_Inquiry_Cart = get_option("UPCP_Product_Inquiry_Cart");
+	$Inquiry_Form_Email = get_option("UPCP_Inquiry_Form_Email");
 	$Product_Reviews = get_option("UPCP_Product_Reviews");
 	$Catalog_Display_Reviews = get_option("UPCP_Catalog_Display_Reviews");
 	$Lightbox = get_option("UPCP_Lightbox");
@@ -87,6 +88,9 @@
 	$Next_Product_Label = get_option("UPCP_Next_Product_Label");
 	$Previous_Product_Label = get_option("UPCP_Previous_Product_Label");
 	$Of_Pagination_Label = get_option("UPCP_Of_Pagination_Label");
+	$Compare_Label = get_option("UPCP_Compare_Label");
+	$Sale_Label = get_option("UPCP_Sale_Label");
+	$Side_By_Side_Label = get_option("UPCP_Side_By_Side_Label");
 	$Inquire_Button_Label = get_option("UPCP_Inquire_Button_Label");
 	$Add_To_Cart_Button_Label = get_option("UPCP_Add_To_Cart_Button_Label");
 	$Send_Inquiry_Label = get_option("UPCP_Send_Inquiry_Label");
@@ -105,6 +109,8 @@
 	$SEO_Title = get_option("UPCP_SEO_Title");
 	$Update_Breadcrumbs = get_option("UPCP_Update_Breadcrumbs");
 
+	if (isset($_POST['Display_Tab'])) {$Display_Tab = $_POST['Display_Tab'];}
+	else {$Display_Tab = "";}
 ?>
 <div class="wrap upcp-options-page-tabbed">
 <div class="upcp-options-submenu-div">
@@ -119,8 +125,11 @@
 
 <div class="upcp-options-page-tabbed-content">
 <form method="post" action="admin.php?page=UPCP-options&DisplayPage=Options&Action=UPCP_UpdateOptions">
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 
-<div id='Basic' class='upcp-option-set'>
+<input type='hidden' name='Display_Tab' value='<?php echo $Display_Tab; ?>' />
+
+<div id='Basic' class='upcp-option-set<?php echo ( ($Display_Tab == '' or $Display_Tab == 'Basic') ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="basic-options" class="upcp-options-tab-title"><?php _e('Basic Options', 'ultimate-product-catalogue'); ?></h2>
 
 <br />
@@ -454,7 +463,7 @@
 </table>
 </div>
 
-<div id='Premium' class='upcp-option-set upcp-hidden'>
+<div id='Premium' class='upcp-option-set<?php echo ( $Display_Tab == 'Premium' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="premium-options" class="upcp-options-tab-title">Premium Options</h2>
 <table id='premium-options' class="form-table upcp-options-table">
 	<tr>
@@ -463,6 +472,7 @@
 	<td>
 		<fieldset><legend class="screen-reader-text"><span><?php _e("Use your custom designed page (Product Page tab) instead of the default?", 'ultimate-product-catalogue')?></span></legend>
 		<label title='Tabbed'><input type='radio' name='custom_product_page' value='Tabbed' <?php if($Custom_Product_Page == "Tabbed") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Tabbed Product Page", 'ultimate-product-catalogue')?></span></label><br />
+		<label title='Shop Style'><input type='radio' name='custom_product_page' value='Shop_Style' <?php if($Custom_Product_Page == "Shop_Style") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Shop Style Product Page", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='Yes'><input type='radio' name='custom_product_page' value='Yes' <?php if($Custom_Product_Page == "Yes") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Custom Product Page", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='Large'><input type='radio' name='custom_product_page' value='Large' <?php if($Custom_Product_Page == "Large") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Custom Page - Large Screen Only", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='No'><input type='radio' name='custom_product_page' value='No' <?php if($Custom_Product_Page == "No") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Default", 'ultimate-product-catalogue')?></span></label><br />
@@ -500,6 +510,30 @@
 		<label title='Yes'><input type='radio' name='product_inquiry_cart' value='Yes' <?php if($Product_Inquiry_Cart == "Yes") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Yes", 'ultimate-product-catalogue')?><?php _e(" (requires plugin 'Contact Form 7')", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='No'><input type='radio' name='product_inquiry_cart' value='No' <?php if($Product_Inquiry_Cart == "No") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("No", 'ultimate-product-catalogue')?></span></label><br />
 		<p><?php _e("Should users be able to inquire about multiple products at once from the main catalog page (requires plugin 'Contact Form 7')?", 'ultimate-product-catalogue')?></p>
+		</fieldset>
+	</td>
+	</tr>
+	<tr>
+	<th scope="row">Inquiry Form Submitted Thank You E-mail</th>
+	<td>
+		<fieldset><legend class="screen-reader-text"><span>Inquiry Form Submitted Thank You E-mail</span></legend>
+			<?php 
+				$plugin = "ultimate-wp-mail/Main.php";
+				$UWPM_Installed = is_plugin_active($plugin);
+				if ($UWPM_Installed) {
+					$UWPM_Emails = get_posts(array('post_type' => 'uwpm_mail_template', 'posts_per_page' => -1));
+					echo "<select name='inquiry_form_email'>";
+					echo "<option value='0'>" . __("None", 'ultimate-faqs') . "</option>";
+					foreach ($UWPM_Emails as $Email) {
+						echo "<option value='" . $Email->ID . "' " . ($Inquiry_Form_Email == $Email->ID ? 'selected' : '') . ">" . $Email->post_title . "</option>";
+					}
+					echo "</select>";
+					echo "<p>What email should be sent out when an inquiry form is submitted?</p>";
+				}
+				else {
+					echo "<p>You can use the <a href='https://wordpress.org/plugins/ultimate-wp-mail/' target='_blank'>Ultimate WP Mail plugin</a> to create a custom email that is sent whenever an inquiry form or cart is submitted.</p>";
+				}
+			?>
 		</fieldset>
 	</td>
 	</tr>
@@ -660,17 +694,17 @@
 	<th scope="row"><?php _e("Hide Blank Custom Fields", 'ultimate-product-catalogue')?> <br/>
 	</th>
 	<td>
-		<fieldset><legend class="screen-reader-text"><span><?php _e("Should custom fields be hidden when they are emtpy?", 'ultimate-product-catalogue')?></span></legend>
+		<fieldset><legend class="screen-reader-text"><span><?php _e("Should custom fields be hidden when they are empty?", 'ultimate-product-catalogue')?></span></legend>
 		<label title='Yes'><input type='radio' name='custom_fields_blank' value='Yes' <?php if($Custom_Fields_Blank == "Yes") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Yes", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='No'><input type='radio' name='custom_fields_blank' value='No' <?php if($Custom_Fields_Blank == "No") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("No", 'ultimate-product-catalogue')?></span></label><br />
-		<p><?php _e("Should custom fields be hidden when they are emtpy?", 'ultimate-product-catalogue')?></p>
+		<p><?php _e("Should custom fields be hidden when they are empty?", 'ultimate-product-catalogue')?></p>
 		</fieldset>
 	</td>
 	</tr>
 </table>
 </div>
 
-<div id='WooCommerce' class='upcp-option-set upcp-hidden'>
+<div id='WooCommerce' class='upcp-option-set<?php echo ( $Display_Tab == 'WooCommerce' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="woocommerce-options" class="upcp-options-tab-title">WooCommerce Options</h2>
 <table id='woocommerce-options' class="form-table upcp-options-table">
 	<tr>
@@ -738,14 +772,14 @@
 		<fieldset><legend class="screen-reader-text"><span><?php _e("WooCommerce Back Link", 'ultimate-product-catalogue')?></span></legend>
 		<label title='Yes'><input type='radio' name='woocommerce_back_link' value='Yes' <?php if($WooCommerce_Back_Link == "Yes") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Yes", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='No'><input type='radio' name='woocommerce_back_link' value='No' <?php if($WooCommerce_Back_Link == "No") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("No", 'ultimate-product-catalogue')?></span></label><br />
-		<p><?php _e("Should the WooCommerce product page breadcrumbs be replaced with a 'Back to Catalogue' link when coming directly from the catalog page? WARNING: 'Maintain Filtering' (in the 'Basic' option tab) must be set to 'Yes'.", 'ultimate-product-catalogue')?></p>
+		<p><?php _e("Should the WooCommerce product page breadcrumbs be replaced with a 'Back to Catalogue' link when coming directly from the catalog page? WARNING: 'Maintain Filtering' (in the 'Basic' options tab) must be set to 'Yes'.", 'ultimate-product-catalogue')?></p>
 		</fieldset>
 	</td>
 	</tr>
 </table>
 </div>
 
-<div id='SEO' class='upcp-option-set upcp-hidden'>
+<div id='SEO' class='upcp-option-set<?php echo ( $Display_Tab == 'SEO' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="seo-options" class="upcp-options-tab-title">SEO Options</h2>
 <table id='seo-options' class="form-table upcp-options-table">
 	<tr>
@@ -755,7 +789,7 @@
 		<fieldset><legend class="screen-reader-text"><span><?php _e("Use Pretty Permalinks for Product Pages", 'ultimate-product-catalogue')?></span></legend>
 		<label title='Yes'><input type='radio' name='pretty_links' value='Yes' <?php if($PrettyLinks == "Yes") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Yes", 'ultimate-product-catalogue')?></span></label><br />
 		<label title='No'><input type='radio' name='pretty_links' value='No' <?php if($PrettyLinks == "No") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("No", 'ultimate-product-catalogue')?></span></label><br />
-		<p><?php _e("Should the plugin create SEO-friendly product page URLs? (Make sure product slugs have been filledin)", 'ultimate-product-catalogue')?></p>
+		<p><?php _e("Should the plugin create SEO-friendly product page URLs? (Make sure product slugs have been filled in)", 'ultimate-product-catalogue')?></p>
 		</fieldset>
 	</td>
 	</tr>
@@ -813,7 +847,7 @@
 </table>
 </div>
 
-<div id='Labelling' class='upcp-option-set upcp-hidden'>
+<div id='Labelling' class='upcp-option-set<?php echo ( $Display_Tab == 'Labelling' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="labelling-options" class="upcp-options-tab-title">Labelling Options</h2>
 		<p>Replace the default text on the catalogue pages</p>
 <div id='labelling-view-options' class="upcp-options-div upcp-options-flex">
@@ -931,6 +965,24 @@
 			<?php _e("Read More Label", 'ultimate-product-catalogue')?> <br/>
 			<fieldset><legend class="screen-reader-text"><span><?php _e("Text that should replace 'read more' for product details", 'ultimate-product-catalogue')?></span></legend>
 			<input type='text' name='read_more_label' value='<?php echo $Read_More_Label; ?>' <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/>
+			</fieldset>
+		</div>
+		<div class='upcp-option'>
+			<?php _e("Compare Label", 'ultimate-product-catalogue')?> <br/>
+			<fieldset><legend class="screen-reader-text"><span><?php _e("Text that should replace 'Compare' on your catalogue pages", 'ultimate-product-catalogue')?></span></legend>
+			<input type='text' name='compare_label' value='<?php echo $Compare_Label; ?>' <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/>
+			</fieldset>
+		</div>
+		<div class='upcp-option'>
+			<?php _e("Side by side Label", 'ultimate-product-catalogue')?> <br/>
+			<fieldset><legend class="screen-reader-text"><span><?php _e("Text that should replace 'side by side' on your catalogue pages", 'ultimate-product-catalogue')?></span></legend>
+			<input type='text' name='side_by_side_label' value='<?php echo $Side_By_Side_Label; ?>' <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/>
+			</fieldset>
+		</div>
+		<div class='upcp-option'>
+			<?php _e("Sale Label", 'ultimate-product-catalogue')?> <br/>
+			<fieldset><legend class="screen-reader-text"><span><?php _e("Text that should replace 'Sale' on your catalogue pages", 'ultimate-product-catalogue')?></span></legend>
+			<input type='text' name='sale_label' value='<?php echo $Sale_Label; ?>' <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/>
 			</fieldset>
 		</div>
 		<div class='upcp-option'>

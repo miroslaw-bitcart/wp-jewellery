@@ -7,7 +7,7 @@ Author: Etoile Web Design
 Author URI: http://www.EtoileWebDesign.com/plugins/ultimate-product-catalog/
 Terms and Conditions: http://www.etoilewebdesign.com/plugin-terms-and-conditions/
 Text Domain: ultimate-product-catalogue
-Version: 4.2.16
+Version: 4.3.3
 */
 
 global $UPCP_db_version;
@@ -121,7 +121,7 @@ $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'UPCP_plugin_settings_link' );
 
 /* Put in the pretty permalinks filter */
-add_filter( 'query_vars', 'add_query_vars_filter' );
+add_filter( 'query_vars', 'UPCP_add_query_vars_filter' );
 
 function Add_UPCP_Scripts() {
 	if (isset($_GET['page']) && $_GET['page'] == 'UPCP-options') {
@@ -157,6 +157,8 @@ function UPCP_Add_Stylesheet() {
     $Catalogue_Style = get_option("UPCP_Catalogue_Style");
 	$Sidebar_Style = get_option("UPCP_Sidebar_Style");
 	$Pagination_Style = get_option("UPCP_Pagination_Style");
+	$Custom_Product_Page = get_option("UPCP_Custom_Product_Page");
+	$Sidebar_Checkbox_Style = get_option("UPCP_Sidebar_Checkbox_Style");
 
     wp_register_style( 'catalogue-style', plugins_url('css/catalogue-style.css', __FILE__) );
     wp_enqueue_style( 'catalogue-style' );
@@ -182,13 +184,20 @@ function UPCP_Add_Stylesheet() {
 	if ($Catalogue_Style != "None" and $Catalogue_Style == "main-minimalist") {wp_register_style('upcp-addtl-stylesheet', UPCP_CD_PLUGIN_URL . "css/addtl/" . $Catalogue_Style . ".css"); wp_enqueue_style('upcp-addtl-stylesheet');}
 	elseif ($Catalogue_Style != "None" and $Catalogue_Style == "main-block") {wp_register_style( 'catalogue-style-block', plugins_url('css/catalogue-style-block.css', __FILE__) ); wp_enqueue_style( 'catalogue-style-block' );}
 	elseif ($Catalogue_Style != "None" and $Catalogue_Style == "main-hover") {wp_register_style( 'catalogue-style-hover', plugins_url('css/catalogue-style-hover.css', __FILE__) ); wp_enqueue_style( 'catalogue-style-hover' );}
-	elseif ($Catalogue_Style != "None") {wp_enqueue_style( 'catalogue-style-' . $Catalogue_Style, UPCP_CD_PLUGIN_URL . 'css/catalogue-style-' . $Catalogue_Style . '.css');}
+	elseif ($Catalogue_Style != "None" and $Catalogue_Style == "contemporary") {wp_register_style( 'catalogue-style-contemporary', plugins_url('css/catalogue-style-contemporary.css', __FILE__) ); wp_enqueue_style( 'catalogue-style-contemporary' );}
+	elseif ($Catalogue_Style != "None" and $Catalogue_Style == "showcase") {wp_register_style( 'catalogue-style-showcase', plugins_url('css/catalogue-style-showcase.css', __FILE__) ); wp_enqueue_style( 'catalogue-style-showcase' );}
+	elseif ($Catalogue_Style != "None" and $Catalogue_Style != "") {wp_enqueue_style( 'catalogue-style-' . $Catalogue_Style, UPCP_CD_PLUGIN_URL . 'css/catalogue-style-' . $Catalogue_Style . '.css');}
 	if ($Sidebar_Style != "None" and $Sidebar_Style != "") {wp_register_style('upcp-sidebar', UPCP_CD_PLUGIN_URL . "css/addtl/" . $Sidebar_Style . ".css"); wp_enqueue_style('upcp-sidebar');}
 	if ($Pagination_Style != "None" and $Pagination_Style != "") {wp_register_style('upcp-pagination', UPCP_CD_PLUGIN_URL . "css/addtl/" . $Pagination_Style . ".css"); wp_enqueue_style('upcp-pagination');}
+
+	if($Custom_Product_Page == "Shop_Style"){wp_enqueue_style( 'product-page-style-shop', plugins_url('css/product-page-style-shop.css', __FILE__) );}
+	if($Sidebar_Checkbox_Style == "contemporary"){wp_enqueue_style( 'sidebar-style-contemporary', plugins_url('css/sidebar-style-contemporary.css', __FILE__) );}
 }
 
 add_action( 'wp_enqueue_scripts', 'Add_UPCP_FrontEnd_Scripts' );
 function Add_UPCP_FrontEnd_Scripts() {
+	global $UPCP_db_version;
+
 	$Lightbox = get_option("UPCP_Lightbox");
     $Catalogue_Style = get_option("UPCP_Catalogue_Style");
 
@@ -207,11 +216,19 @@ function Add_UPCP_FrontEnd_Scripts() {
 	}
 	elseif ($Catalogue_Style != "None") {wp_enqueue_script('upcp-theme-js', UPCP_CD_PLUGIN_URL . 'js/catalogue-style-' . $Catalogue_Style . '.js', array( 'jquery' ));}
 	
-	wp_register_script('upcpjquery', plugins_url( '/js/upcp-jquery-functions.js' , __FILE__ ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider' ));
+	wp_register_script('upcpjquery', plugins_url( '/js/upcp-jquery-functions.js' , __FILE__ ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider' ), $UPCP_db_version);
 
-	if (get_option('UPCP_Updating_Results_Label') != "") {$Updating_Results_Label = get_option('UPCP_Updating_Results_Label');}
-	else {$Updating_Results_Label = "Updating Results...";}
-	$Translation_Array = array('updating_results_label' => $Updating_Results_Label);
+	$Updating_Results_Label = get_option('UPCP_Updating_Results_Label');
+	if ($Updating_Results_Label == "") {$Updating_Results_Label = __("Updating Results...", 'ultimate-product-catalogue');}
+	$Compare_Label = get_option('UPCP_Compare_Label');
+	if ($Compare_Label == "") {$Compare_Label = __("Compare", 'ultimate-product-catalogue');}
+	$Side_By_Side_Label = get_option('UPCP_Side_By_Side_Label');
+	if ($Side_By_Side_Label == "") {$Side_By_Side_Label = __("side by side", 'ultimate-product-catalogue');}
+	$Translation_Array = array(
+		'updating_results_label' => $Updating_Results_Label,
+		'compare_label' => $Compare_Label,
+		'side_by_side_label' => $Side_By_Side_Label
+	);
 	wp_localize_script( 'upcpjquery', 'ajax_translations', $Translation_Array );
 
 	wp_enqueue_script('upcpjquery');
@@ -328,7 +345,7 @@ if (get_option('UPCP_DB_Version') != $UPCP_db_version) {
 $rules = get_option('rewrite_rules');
 $PrettyLinks = get_option("UPCP_Pretty_Links");
 if (!isset($rules['"(.?.+?)/([^&]+)/?$"']) and $PrettyLinks == "Yes") {
-	add_filter( 'query_vars', 'add_query_vars_filter' );
+	add_filter( 'query_vars', 'UPCP_add_query_vars_filter' );
 	add_filter('init', 'UPCP_Rewrite_Rules');
 	update_option("UPCP_Update_RR_Rules", "No");
 }

@@ -45,6 +45,7 @@ function ShowOptionTab(TabName) {
 		jQuery(this).removeClass("options-subnav-tab-active");
 	});
 	jQuery("#"+TabName+"_Menu").addClass("options-subnav-tab-active");
+	jQuery('input[name="Display_Tab"]').val(TabName);
 }
 
 function ShowStylingTab(TabName) {
@@ -63,6 +64,7 @@ function ShowStylingTab(TabName) {
 		jQuery(this).removeClass("styling-subnav-tab-active");
 	});
 	jQuery("#"+TabName+"_Menu").addClass("styling-subnav-tab-active");
+	jQuery('input[name="Styles_Display_Tab"]').val(TabName);
 }
 
 function Reload_PP_Page(Value) {

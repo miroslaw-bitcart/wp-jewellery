@@ -61,7 +61,7 @@
 					<input type="hidden" name="action" value="Edit_Category" />
 					<input type="hidden" name="Category_ID" value="<?php echo $Category->Category_ID; ?>" />
 					<input type="hidden" name="WC_term_id" value="<?php echo $Category->Category_WC_ID; ?>" />
-					<?php wp_nonce_field(); ?>
+					<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 					<?php wp_referer_field(); ?>
 					<div class="form-field">
 						<label for="Category_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

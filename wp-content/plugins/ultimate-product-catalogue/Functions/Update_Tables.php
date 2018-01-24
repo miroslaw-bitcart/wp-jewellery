@@ -218,6 +218,7 @@ function UpdateTables() {
 	if (get_option("UPCP_Product_Comparison") == "") {update_option("UPCP_Product_Comparison", "No");}
 	if (get_option("UPCP_Product_Inquiry_Form") == "") {update_option("UPCP_Product_Inquiry_Form", "No");}
 	if (get_option("UPCP_Product_Inquiry_Cart") == "") {update_option("UPCP_Product_Inquiry_Cart", "No");}
+	if (get_option("UPCP_Inquiry_Form_Email") == "") {update_option("UPCP_Inquiry_Form_Email", 0);}
 	if (get_option("UPCP_Product_Reviews") == "") {update_option("UPCP_Product_Reviews", "No");}
 	if (get_option("UPCP_Catalog_Display_Reviews") == "") {update_option("UPCP_Catalog_Display_Reviews", "No");}
 	if (get_option("UPCP_Lightbox") == "") {update_option("UPCP_Lightbox", "No");}

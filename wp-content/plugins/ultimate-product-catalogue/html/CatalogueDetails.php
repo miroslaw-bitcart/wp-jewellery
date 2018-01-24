@@ -12,7 +12,7 @@ $Catalogue = $wpdb->get_row($Query); ?>
 						<form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_EditCatalogue&Update_Item=Catalogue&Catalogue_ID=<?php echo $Catalogue->Catalogue_ID ?>" class="validate" enctype="multipart/form-data">
 						<input type="hidden" name="action" value="Edit_Catalogue" />
 						<input type="hidden" name="Catalogue_ID" value="<?php echo $Catalogue->Catalogue_ID; ?>" />
-						<?php wp_nonce_field(); ?>
+						<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 						<?php wp_referer_field(); ?>
 						<table class="form-table">
 						<tr>
@@ -160,6 +160,7 @@ $Catalogue = $wpdb->get_row($Query); ?>
 	</div>
 
 					
+	<form id='upcp-catalogue-items-delete' action='admin.php?page=UPCP-options&Action=UPCP_MassDeleteCatalogueItems&Selected=Catalogue&Catalogue_ID=<?php echo esc_html($_GET['Catalogue_ID']); ?>' method='post'>
 	<table class="wp-list-table striped widefat tags sorttable catalogue-list">
 	<thead>
 		<tr>
@@ -182,12 +183,14 @@ $Catalogue = $wpdb->get_row($Query); ?>
 			if ($CatalogueItem->Category_ID != "" and $CatalogueItem->Category_ID != 0) {$CatalogueItemType = "Category"; $CatalogueItemName = $wpdb->get_var("SELECT Category_Name from $categories_table_name WHERE Category_ID=" . $CatalogueItem->Category_ID);}
 		?>
 			<tr id="list-item-<?php echo $CatalogueItem->Catalogue_Item_ID; ?>" class="list-item">
-				<td class="item-delete"><a href="admin.php?page=UPCP-options&Action=UPCP_DeleteCatalogueItem&DisplayPage=Catalogue&Catalogue_Item_ID=<?php echo $CatalogueItem->Catalogue_Item_ID; ?>"><?php _e("Delete", 'ultimate-product-catalogue') ?></a></td>
+				<td class="item-delete"><input type='checkbox' name='Catalogue_Item_ID[]' value='<?php echo $CatalogueItem->Catalogue_Item_ID; ?>'></td>
 				<td class="item-title"><?php echo $CatalogueItemName; ?></td>
 				<td class="item-type"><?php echo $CatalogueItemType; ?></td>
 			</tr>
 	<?php } ?>
- 	</table>					
+ 	</table>
+ 	<input type='submit' name='Delete_Catalogue_Items' value='<?php _e("Delete Catalogue Items", 'ultimate-product-catalogue'); ?>' />
+ 	</form>				
 </div>
 
 <div class="upcp-catalogue-sort-options">

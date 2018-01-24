@@ -166,7 +166,7 @@
 <h3><?php _e("Add a New Category", 'ultimate-product-catalogue') ?></h3>
 <form id="addcat" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddCategory&DisplayPage=Category" class="validate" enctype="multipart/form-data">
 <input type="hidden" name="action" value="Add_Category" />
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 <?php wp_referer_field(); ?>
 <div class="form-field form-required">
 	<label for="Category_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

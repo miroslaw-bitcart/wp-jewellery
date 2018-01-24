@@ -91,6 +91,13 @@ if($hideReviewBox == 'Yes'){
 <!-- LEFT COLUMN -->
 
 <div id="ewd-dashboard-left-column" class="metabox-holder">
+
+	<?php if ( time() < 1511845201 and $Full_Version != "Yes" ) { ?>
+		<a href="https://www.etoilewebdesign.com/license-payment/"><img src="http://www.etoilewebdesign.com/Screenshots/blackFridaypromotionbanner1200.png" style="position: relative; float: left; width: 100%; height: auto; border: none; margin-bottom: 20px;" /></a>
+		<div style="clear: both;"></div>
+	<?php } ?>
+
+
 <?php /* echo get_option('plugin_error');*/ ?>
 <?php if (get_option("UPCP_Update_Flag") == "Yes" or get_option("UPCP_Install_Flag") == "Yes") {?>
 	<div id="ewd-dashboard-thank-you" class="postbox upcp-thank-you upcp-postbox-collapsible" >
@@ -145,7 +152,6 @@ update_option('UPCP_Install_Flag', "No");
 <!-- List of the catalogues which have already been created -->
 <div id='ewd-dashboard-graph' class="col-wrap">
 
-<?php wp_nonce_field(); ?>
 <?php wp_referer_field(); ?>
 
 <?php

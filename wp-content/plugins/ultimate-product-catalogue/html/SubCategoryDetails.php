@@ -42,7 +42,7 @@
 					<input type="hidden" name="action" value="Edit_SubCategory" />
 					<input type="hidden" name="SubCategory_ID" value="<?php echo $SubCategory->SubCategory_ID; ?>" />
 					<input type="hidden" name="WC_term_id" value="<?php echo $SubCategory->SubCategory_WC_ID; ?>" />
-					<?php wp_nonce_field(); ?>
+					<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 					<?php wp_referer_field(); ?>
 					<div class='form-field'>
 						<label for="SubCategory_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

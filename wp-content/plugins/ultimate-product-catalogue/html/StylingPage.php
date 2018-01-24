@@ -136,6 +136,8 @@
 
 	/* Tabbed PP Options */
 
+	if (isset($_POST['Styles_Display_Tab'])) {$Display_Tab = $_POST['Styles_Display_Tab'];}
+	else {$Display_Tab = "";} 
 ?>
 <div class="wrap upcp-options-page-tabbed">
 <div class="upcp-options-submenu-div ">
@@ -154,8 +156,11 @@
 
 <div class="upcp-styling-page-tabbed-content">
 <form id='upcp-styling-form' method="post" action="admin.php?page=UPCP-options&DisplayPage=Styling&Action=UPCP_UpdateOptions" enctype="multipart/form-data">
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 
-<div id='Cata' class='upcp-styling-set' style='min-height: auto;'>
+<input type='hidden' name='Styles_Display_Tab' value='<?php echo $Display_Tab; ?>' />
+
+<div id='Cata' class='upcp-styling-set<?php echo ( ( $Display_Tab == '' or $Display_Tab == 'Cata' ) ? '' : ' upcp-hidden' ); ?>' style='min-height: auto;'>
 	<h2 id="catalogue-skin-styling" class="upcp-options-tab-title">Catalogue Skin Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 	<table id='catalogue-skin-options' class='form-table upcp-options-table'>
 	<div id='catalogue-skin-options' class="upcp-options-div ">
@@ -168,6 +173,8 @@
 					<label title='Block'><input type='radio' name='catalogue_style' value='main-block' <?php if($Catalogue_Style == "main-block") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Block", 'ultimate-product-catalogue')?></span></label><br />
 					<label title='Minimalist'><input type='radio' name='catalogue_style' value='main-minimalist' <?php if($Catalogue_Style == "main-minimalist") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Minimalist", 'ultimate-product-catalogue')?></span></label><br />
 					<label title='Minimalist Hover'><input type='radio' name='catalogue_style' value='main-hover' <?php if($Catalogue_Style == "main-hover") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Hover", 'ultimate-product-catalogue')?></span></label><br />
+					<label title='Contemporary'><input type='radio' name='catalogue_style' value='contemporary' <?php if($Catalogue_Style == "contemporary") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Contemporary", 'ultimate-product-catalogue')?></span></label><br />
+					<label title='Showcase'><input type='radio' name='catalogue_style' value='showcase' <?php if($Catalogue_Style == "showcase") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Showcase", 'ultimate-product-catalogue')?></span></label><br />
 					<?php foreach ($Installed_Skins as $Skin) {echo "<label title='" . $Skin['Name'] . "'><input type='radio' name='catalogue_style' value='" . $Skin['Slug'] . "' " . ($Catalogue_Style == $Skin['Slug'] ? "checked " : " ") . ($Full_Version != "Yes" ? "disabled" : "") . "/> <span>" . $Skin['Name'] . "</span></label><br />";} ?>
 					<p><?php _e("Selects a layout style for your catalogue.", 'ultimate-product-catalogue')?></p>
 				</fieldset>
@@ -328,7 +335,7 @@
 
 
 
-<div id='Thumbnail' class='upcp-styling-set upcp-hidden'>
+<div id='Thumbnail' class='upcp-styling-set<?php echo ( $Display_Tab == 'Thumbnail' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="thumbnail-view-styling" class="upcp-options-tab-title">Thumbnail View Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 	<div id='thumbnail-view-options' class="upcp-options-div upcp-options-flex">
 
@@ -457,7 +464,7 @@
 </div>
 
 
-<div id='List' class='upcp-styling-set upcp-hidden'>
+<div id='List' class='upcp-styling-set<?php echo ( $Display_Tab == 'List' ? '' : ' upcp-hidden' ); ?>'>
 
 <h2 id="list-view-styling" class="upcp-options-tab-title">List View Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 	<table id='list-navigation-options' class='form-table upcp-options-table'>
@@ -592,7 +599,7 @@
 </div>
 
 
-<div id='Detail' class='upcp-styling-set upcp-hidden'>
+<div id='Detail' class='upcp-styling-set<?php echo ( $Display_Tab == 'Detail' ? '' : ' upcp-hidden' ); ?>'>
 
 <h2 id="detail-view-styling" class="upcp-options-tab-title">Detail View Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 <div id='detail-view-options' class="upcp-options-div upcp-options-flex">
@@ -716,12 +723,12 @@
 </div>
 
 
-<div id='Sidebar' class='upcp-styling-set upcp-hidden'>
+<div id='Sidebar' class='upcp-styling-set<?php echo ( $Display_Tab == 'Sidebar' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="sidebar-view-styling" class="upcp-options-tab-title">Sidebar Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 <div id='sidebar-options' class="upcp-options-div upcp-options-flex">
 	<div class='upcp-subsection upcp-subsection-full'>
 		<div class='upcp-subsection-content'>
-		<div class='upcp-subsection-half'>
+		<div class='upcp-subsection-full'>
 			<table id='sidebar-styling-options' class="form-table upcp-options-table">
 			<tr>
 			<th scope="row"><?php _e("Show/Hide Custom Fields", 'ultimate-product-catalogue')?> <br/>
@@ -769,7 +776,7 @@
 			</tr>
 			</table>
 			</div>
-		<div class='upcp-subsection-half'>
+		<div class='upcp-subsection-full'>
 			<table id='sidebar-styling-options' class="form-table upcp-options-table">
 			<tr>
 			<th scope="row"><?php _e("Sidebar Title Hover Effect", 'ultimate-product-catalogue')?> <br/>
@@ -783,7 +790,7 @@
 			</td>
 			</tr>
 			<tr>
-			<th scope="row"><?php _e("Sidebar Checkbox Styling", 'ultimate-product-catalogue')?> <br/>
+			<th scope="row"><?php _e("Sidebar Styling", 'ultimate-product-catalogue')?> <br/>
 			</th>
 			<td>
 				<fieldset><legend class="screen-reader-text"><span><?php _e("Which style of checkbox should be applied to sidebar items?", 'ultimate-product-catalogue')?></span></legend>
@@ -791,7 +798,8 @@
 				<label title='Square'><input type='radio' name='sidebar_checkbox_style' value='square' <?php if($Sidebar_Checkbox_Style == "square") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Checkmark", 'ultimate-product-catalogue')?></span></label><br />
 				<label title='Minimalist'><input type='radio' name='sidebar_checkbox_style' value='minimalist' <?php if($Sidebar_Checkbox_Style == "minimalist") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Minimalist", 'ultimate-product-catalogue')?></span></label><br />
 				<label title='Block'><input type='radio' name='sidebar_checkbox_style' value='block' <?php if($Sidebar_Checkbox_Style == "block") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Block", 'ultimate-product-catalogue')?></span></label><br />
-				<p><?php _e("Which style of checkbox should be applied to sidebar items?", 'ultimate-product-catalogue')?></p>
+				<label title='Contemporary'><input type='radio' name='sidebar_checkbox_style' value='contemporary' <?php if($Sidebar_Checkbox_Style == "contemporary") {echo "checked='checked'";} ?> <?php if ($Full_Version != "Yes") {echo "disabled";} ?>/> <span><?php _e("Contemporary", 'ultimate-product-catalogue')?></span></label><br />
+				<p><?php _e("Which style should be applied to the catalog sidebar?", 'ultimate-product-catalogue')?></p>
 				</fieldset>
 			</td>
 			</tr>
@@ -903,7 +911,7 @@
 </div>
 
 
-<div id='Pagination' class='upcp-styling-set upcp-hidden'>
+<div id='Pagination' class='upcp-styling-set<?php echo ( $Display_Tab == 'Pagination' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="pagination-view-styling" class="upcp-options-tab-title">Pagination Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 <div id='pagination-options' class="upcp-options-div upcp-options-flex">
 	<div class='upcp-subsection'>
@@ -974,7 +982,7 @@ Default Styling Options
 </div>
 
 
-<div id='Custom-PP' class='upcp-styling-set upcp-hidden'>
+<div id='Custom-PP' class='upcp-styling-set<?php echo ( $Display_Tab == 'Custom-PP' ? '' : ' upcp-hidden' ); ?>'>
 <h2 id="custom-pp-styling" class="upcp-options-tab-title">Custom Product Page Styling <?php if ($Full_Version != "Yes") {echo "(Premium)";} ?></h2>
 <div id='custom-product-page-options' class="upcp-options-div upcp-options-flex">
 	<div class='upcp-subsection'>

@@ -182,7 +182,7 @@
 <!-- Form to create a new field -->
 <form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddCustomField&DisplayPage=CustomFields" class="validate" enctype="multipart/form-data">
 <input type="hidden" name="action" value="Add_Custom_Field" />
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 <?php wp_referer_field(); ?>
 <div class="form-field form-required">
 	<label for="Field_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

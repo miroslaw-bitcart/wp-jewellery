@@ -30,7 +30,7 @@
 			<form id="edittaggroup" method="post" action="admin.php?page=UPCP-options&Action=UPCP_EditTagGroup&Update_Item=Tag_Group&Tag_Group_ID=<?php echo $Tag_Group->Tag_Group_ID; ?>" class="validate" enctype="multipart/form-data">
 			<input type="hidden" name="action" value="Edit_Tag_Group" />
 			<input type="hidden" name="Tag_Group_ID" value="<?php echo $Tag_Group->Tag_Group_ID; ?>" />
- 			<?php wp_nonce_field(); ?>
+ 			<?php wp_nonce_field('UPCP_Tag_Group_Nonce', 'UPCP_Tag_Group_Nonce'); ?>
  			<?php wp_referer_field(); ?>
 
  			<div class='form-field'>

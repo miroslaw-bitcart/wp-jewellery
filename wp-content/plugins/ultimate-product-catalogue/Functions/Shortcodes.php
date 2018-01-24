@@ -253,6 +253,7 @@ function Insert_Product_Catalog($atts) {
 	$ProductString .= "<div class='shortcode-attr' id='upcp-current-layout'>" . $starting_layout . "</div>";
 	$ProductString .= "<div class='shortcode-attr' id='upcp-exclude-layouts'>" . $excluded_layouts . "</div>";
 	$ProductString .= "<div class='shortcode-attr' id='upcp-current-page'>" . $current_page . "</div>";
+	$ProductString .= "<div class='shortcode-attr' id='upcp-products-per-page'>" . $products_per_page . "</div>";
 	$ProductString .= "<div class='shortcode-attr' id='upcp-default-search-text'>" . $Product_Name_Text . "</div>";
 	if ($ajax_reload == "Yes") {$ProductString .= "<div class='shortcode-attr' id='upcp-base-url'>" . $ajax_url . "</div>";}
 	else {
@@ -794,6 +795,10 @@ function UPCP_AddProduct($format, $Item_ID, $Tags, $AjaxReload = "No", $AjaxURL 
 	if($Inquire_Button_Label == ""){$Inquire_Button_Label = __('Inquire', 'ultimate-product-catalogue');}
 	$Add_To_Cart_Button_Label = get_option("UPCP_Add_To_Cart_Button_Label");
 	if($Add_To_Cart_Button_Label == ""){$Add_To_Cart_Button_Label = __('Add to Cart', 'ultimate-product-catalogue');}
+	$Sale_Label = get_option("UPCP_Sale_Label");
+	if ($Sale_Label == "") {$Sale_Label = __("Sale", 'ultimate-product-catalogue');}
+	$Compare_Label = get_option("UPCP_Compare_Label");
+	if ($Compare_Label == "") {$Compare_Label = __("Compare", 'ultimate-product-catalogue');}
 
 	if ($Links == "New") {$NewWindowCode = "target='_blank'";}
 	else {$NewWindowCode = "";}
@@ -856,8 +861,8 @@ function UPCP_AddProduct($format, $Item_ID, $Tags, $AjaxReload = "No", $AjaxURL 
 	if ($format == "Thumbnail") {
 		$ProductString .= "<div id='prod-cat-thumb-item-" . $Product->Item_ID . "' class='prod-cat-item upcp-thumb-item " . $Lightbox_Mode_Class . "' data-itemid='" . $Product->Item_ID . "'>\n";
 		$ProductString .= "<div id='prod-cat-thumb-div-" . $Product->Item_ID . "' class='prod-cat-thumb-image-div upcp-thumb-image-div'>";
-		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . __("Compare", 'ultimate-product-catalogue') . "</span></div>";}
-		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . __("Sale", 'ultimate-product-catalogue') . "</span></div>";}
+		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . $Compare_Label . "</span></div>";}
+		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . $Sale_Label . "</span></div>";}
 		$ProductString .= "<a class='upcp-catalogue-link " . ($Lightbox_Mode == "Yes" ? "disableLink" : "") . "' " . $NewWindowCode . " href='" . $ItemLink . "' onclick='RecordView(" . $Product->Item_ID . ");'>";
 		$ProductString .= apply_filters('upcp_image_div', $PhotoCode, array('Item_ID' => $Product->Item_ID, 'Image_URL' => $Product->Item_Photo_URL, 'Layout' => $format));
 		$ProductString .= "</a>";
@@ -884,8 +889,8 @@ function UPCP_AddProduct($format, $Item_ID, $Tags, $AjaxReload = "No", $AjaxURL 
 		$ProductString .= "<div id='prod-cat-price-" . $Product->Item_ID . "' class='prod-cat-price upcp-list-price' onclick='ToggleItem(" . $Product->Item_ID . ");'>" . $Item_Display_Price. "</div>\n";
 		$ProductString .= "<div id='prod-cat-details-" . $Product->Item_ID . "' class='prod-cat-details upcp-list-details hidden-field'>\n";
 		$ProductString .= "<div id='prod-cat-thumb-div-" . $Product->Item_ID . "' class='prod-cat-thumb-image-div upcp-list-image-div'>";
-		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . __("Compare", 'ultimate-product-catalogue') . "</span></div>";}
-		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . __("Sale", 'ultimate-product-catalogue') . "</span></div>";}
+		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . $Compare_Label . "</span></div>";}
+		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . $Sale_Label . "</span></div>";}
 		$ProductString .= "<a class='upcp-catalogue-link' " . $NewWindowCode . " href='" . $ItemLink . "' onclick='RecordView(" . $Product->Item_ID . ");'>";
 		$ProductString .= apply_filters('upcp_image_div', $PhotoCode, array('Item_ID' => $Product->Item_ID, 'Image_URL' => $Product->Item_Photo_URL, 'Layout' => $format));
 		$ProductString .= "</a>";
@@ -905,8 +910,8 @@ function UPCP_AddProduct($format, $Item_ID, $Tags, $AjaxReload = "No", $AjaxURL 
 	if ($format == "Detail") {
 		$ProductString .= "<div id='prod-cat-detail-item-" . $Product->Item_ID . "' class='prod-cat-item upcp-detail-item " . $Lightbox_Mode_Class . "' data-itemid='" . $Product->Item_ID . "'>\n";
 		$ProductString .= "<div id='prod-cat-detail-div-" . $Product->Item_ID . "' class='prod-cat-thumb-image-div upcp-detail-image-div'>";
-		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . __("Compare", 'ultimate-product-catalogue') . "</span></div>";}
-		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . __("Sale", 'ultimate-product-catalogue') . "</span></div>";}
+		if ($Product_Comparison == "Yes") {$ProductString .= "<div class='upcp-product-comparison-button' data-prodid='" . $Product->Item_ID . "' data-prodname='" . $Product->Item_Name ."'><span class='compareSpan'>" . $Compare_Label . "</span></div>";}
+		if (($Sale_Mode == "All" and $Item_Price != $Item_Regular_Price) or ($Sale_Mode == "Individual" and $Product->Item_Sale_Mode == "Yes")) {$ProductString .= "<div class='upcp-sale-flag'><span class='saleSpan'>" . $Sale_Label . "</span></div>";}
 		$ProductString .= "<a class='upcp-catalogue-link' " . $NewWindowCode . " href='" . $ItemLink . "' onclick='RecordView(" . $Product->Item_ID . ");'>";
 		$ProductString .= apply_filters('upcp_image_div', $PhotoCode, array('Item_ID' => $Product->Item_ID, 'Image_URL' => $Product->Item_Photo_URL, 'Layout' => $format));
 		$ProductString .= "</a>";
@@ -989,6 +994,8 @@ function SingleProductPage() {
 	if($Additional_Info_SubCategory_Label == ""){$Additional_Info_SubCategory_Label = __("Sub-Category:", 'ultimate-product-catalogue');}
 	$Additional_Info_Tags_Label = get_option("UPCP_Additional_Info_Tags_Label");
 	if($Additional_Info_Tags_Label == ""){$Additional_Info_Tags_Label = __("Tags:", 'ultimate-product-catalogue');}
+
+	$Protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 
 	if ($Pretty_Links == "Yes") {$Product = $wpdb->get_row($wpdb->prepare("SELECT * FROM $items_table_name WHERE Item_Slug=%s", trim(get_query_var('single_product'), "/? ")));}
 	else {$Product = $wpdb->get_row($wpdb->prepare("SELECT * FROM $items_table_name WHERE Item_ID='%d'", $_GET['SingleProduct']));}
@@ -1116,21 +1123,23 @@ function SingleProductPage() {
 		$ProductString .= $Description;
 
 		if (is_array($Extra_Elements) and $Extra_Elements[0] != "Blank") {
-		if (in_array("Category", $Extra_Elements)) {$ProductString .= "<div class='prod-category-container upcp-product-side-container'>\n<div class='upcp-side-title'>" . $Additional_Info_Category_Label . ": </div>" . $Product->Category_Name . "</div>";}
-			if (in_array("SubCategory", $Extra_Elements)) {$ProductString .= "<div class='prod-category-container upcp-product-side-container'>\n<div class='upcp-side-title'>" . $Additional_Info_SubCategory_Label . ": </div>" . $Product->SubCategory_Name . "</div>";}
+		if (in_array("Category", $Extra_Elements)) {$ProductString .= "<div class='prod-category-container upcp-product-side-container'>\n<div class='upcp-side-title'>" . $Additional_Info_Category_Label . " </div>" . $Product->Category_Name . "</div>";}
+			if (in_array("SubCategory", $Extra_Elements)) {$ProductString .= "<div class='prod-category-container upcp-product-side-container'>\n<div class='upcp-side-title'>" . $Additional_Info_SubCategory_Label . " </div>" . $Product->SubCategory_Name . "</div>";}
 			if (in_array("Tags", $Extra_Elements)) {$ProductString .= "<div class='prod-tag-container upcp-product-side-container'>\n<div class='upcp-side-title'>" . $Additional_Info_Tags_Label . "</div>" . $TagsString . "</div>";}
 			if (in_array("CustomFields", $Extra_Elements)) {
 				$ProductString .= "<div class='prod-cf-container upcp-product-side-container'>";
-				$CustomFields = $wpdb->get_results("SELECT Field_ID, Meta_Value FROM $fields_meta_table_name WHERE Item_ID='" . $Product->Item_ID . "'");
-				foreach ($CustomFields as $CustomField) {
-					$Field = $wpdb->get_row("SELECT Field_Name, Field_Type FROM $fields_table_name WHERE Field_ID='" . $CustomField->Field_ID . "'");
-					if ($Custom_Fields_Blank != "Yes" or $CustomField->Meta_Value != "") {
+				$Fields = $wpdb->get_results("SELECT Field_Name, Field_ID, Field_Type FROM $fields_table_name ORDER BY Field_Sidebar_Order");
+				foreach ($Fields as $Field) {
+					$Value = $wpdb->get_row("SELECT Meta_Value FROM $fields_meta_table_name WHERE Item_ID='" . $Product->Item_ID . "'and Field_ID='" . $Field->Field_ID ."'");
+					if ($Custom_Fields_Blank != "Yes" or $Value->Meta_Value != "") {
+						if (is_object($Value)) { $Meta_Value = $Value->Meta_Value;}
+						else {$Meta_Value = "";}
 						if ($Field->Field_Type == "file") {
 							$ProductString .= "<div class='upcp-tab-title'>" . $Field->Field_Name . ":</div>";
-							$ProductString .= "<a href='" . $upload_dir['baseurl'] . "/upcp-product-file-uploads/" .$CustomField->Meta_Value . "' download>" . $CustomField->Meta_Value . "</a><br>";
+							$ProductString .= "<a href='" . $upload_dir['baseurl'] . "/upcp-product-file-uploads/" .$Value->Meta_Value . "' download>" . $Value->Meta_Value . "</a><br>";
 						}
-						elseif ($Field->Field_Type == "checkbox") {$ProductString .= "<div class='upcp-tab-title'>" . $Field->Field_Name . ":</div><span>" . str_replace(",", ", ", $CustomField->Meta_Value) . "</span><br>";}
-						else {$ProductString .= "<div class='upcp-tab-title'>" . $Field->Field_Name . ":</div><span>" . $CustomField->Meta_Value . "</span><br>";}
+						elseif ($Field->Field_Type == "checkbox") {$ProductString .= "<div class='upcp-tab-title'>" . $Field->Field_Name . ":</div><span>" . str_replace(",", ", ", $Meta_Value) . "</span><br>";}
+						else {$ProductString .= "<div class='upcp-tab-title'>" . $Field->Field_Name . ":</div><span>" . $Meta_Value . "</span><br>";}
 					}
 				}
 				$ProductString .= "</div>";
@@ -1154,7 +1163,7 @@ function SingleProductPage() {
 			if (in_array("Videos", $Extra_Elements)) {
 				$ProductString .= "<div class='prod-videos-container upcp-product-side-container'>";
 				foreach ($Item_Videos as $Video) {
-					$video_info = 'http://gdata.youtube.com/feeds/api/videos/' . $Video->Item_Video_URL;
+					$video_info = $Protocol . 'gdata.youtube.com/feeds/api/videos/' . $Video->Item_Video_URL;
 
 					if($video_info != ""){
 						$ch = curl_init();
@@ -1175,7 +1184,7 @@ function SingleProductPage() {
 						$ItemVideoDescription = $ItemVideoThumb;
 					}
 					$ProductString .= "<div class='upcp-side-title upcp-product-video'>" . $ItemVideoDescription . "</div>";
-					$ProductString .= "<iframe width='300' height='225' src='http://www.youtube.com/embed/" . $Video->Item_Video_URL . "?rel=0&fs=1' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
+					$ProductString .= "<iframe width='300' height='225' src='" . $Protocol . "www.youtube.com/embed/" . $Video->Item_Video_URL . "?rel=0&fs=1' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>";
 				}
 				$ProductString .= "</div>";
 			}
@@ -1213,7 +1222,7 @@ function SingleProductPage() {
 
 		$ProductString .= "</div>\n";
 	}
-	elseif ($Custom_Product_Page == "Tabbed") {
+	elseif ($Custom_Product_Page == "Tabbed" || $Custom_Product_Page == "Shop_Style") {
 
 		if (get_option("UPCP_Product_Details_Label") != "") {$Product_Details_Label = get_option("UPCP_Product_Details_Label");}
 		else {$Product_Details_Label = __("<span class='upcp-tab-break'>". __('Product', 'ultimate-product-catalogue') . "</span> <span class='upcp-tab-break'>" . __('Details', 'ultimate-product-catalogue') . "</span>", 'ultimate-product-catalogue');}
@@ -1240,7 +1249,7 @@ function SingleProductPage() {
 		if (sizeOf($Item_Videos) > 0) {
 			$ProductString .= "<div class='upcp-tabbed-video-container upcp-Hide-Item'>";
 			$ProductString .= "<a href='#' class='prod-cat-addt-details-link-a'> ";
-			$ProductString .= "<iframe width='420' height='315' class='upcp-main-video' src='http://www.youtube.com/embed/" . $Item_Videos[0]->Item_Video_URL . "' frameborder='0' allowfullscreen></iframe>";
+			$ProductString .= "<iframe width='420' height='315' class='upcp-main-video' src='" . $Protocol . "www.youtube.com/embed/" . $Item_Videos[0]->Item_Video_URL . "' frameborder='0' allowfullscreen></iframe>";
 			$ProductString .= "</a>";
 			$ProductString .= "</div>";
 		}
@@ -1261,8 +1270,8 @@ function SingleProductPage() {
 		$Slide_Counter = 0;
 		if (isset($PhotoURL)) {$ProductString .= "<li class='upcp-tabbed-addt-img-thumbs'><a class='upcp-thumb-anchor " . $Lightbox_Class . "' href='" . $PhotoURL ."' data-ulbsource='" . $PhotoURL . "' data-ulbtitle='" . htmlspecialchars(UPCP_Get_Image_Title($PhotoURL), ENT_QUOTES) . "' data-ulbdescription='" . htmlspecialchars(UPCP_Get_Image_Caption($PhotoURL), ENT_QUOTES) . "'><img src='" . $PhotoURL . "' id='prod-cat-addt-details-thumb-P". $Product->Item_ID . "' class='upcp-tabbed-addt-details-thumb " . $Disable_Lightbox . "' onclick='ZoomImage(\"" . $Product->Item_ID . "\", \"0\"); return false;'></a></li>";}
 		foreach ($Item_Images as $Image) {$Slide_Counter++; $ProductString .= "<li class='upcp-tabbed-addt-img-thumbs'><a class='upcp-thumb-anchor " . $Lightbox_Class . "' href='" . htmlspecialchars($Image->Item_Image_URL, ENT_QUOTES) . "' data-ulbsource='" . htmlspecialchars($Image->Item_Image_URL, ENT_QUOTES) . "' data-ulbtitle='" . htmlspecialchars($Image->Title, ENT_QUOTES) . "' data-ulbdescription='" . htmlspecialchars($Image->Caption, ENT_QUOTES) . "'><img src='" . htmlspecialchars($Image->Item_Image_URL, ENT_QUOTES) . "' id='prod-cat-addt-details-thumb-". $Image->Item_Image_ID . "' class='upcp-tabbed-addt-details-thumb " . $Disable_Lightbox . "' onclick='ZoomImage(\"" . $Product->Item_ID . "\", \"" . $Image->Item_Image_ID . "\"); return false;' ></a></li>";}
-		foreach ($Item_Videos as $Video) {$Slide_Counter++; $ProductString .= "<li class='upcp-tabbed-addt-img-thumbs'><a class='upcp-thumb-anchor " . $Lightbox_Class . " upcp-thumb-video' href='http://img.youtube.com/vi/" . $Video->Item_Video_URL . "/default.jpg' data-videoid='" . $Video->Item_Video_URL . "' data-ulbsource='http://www.youtube.com/embed/" . $Video->Item_Video_URL . "'><img src='http://img.youtube.com/vi/" . $Video->Item_Video_URL . "/default.jpg' id='prod-cat-addt-details-thumb-". $Image->Item_Image_ID . "' class='upcp-tabbed-addt-details-thumb " . $Disable_Lightbox . "'></a></li>";}
-		//foreach ($Item_Videos as $Video) {$ProductString .= "<iframe width='300' height='225' src='http://www.youtube.com/embed/" . $Video->Item_Video_URL . "?rel=0&fs=1' webkitallowfullscreen mozallowfullscreen allowfullscreen onclick='ZoomImage(\"" . $Product->Item_ID . "\", \"" . $Video->Video_ID . "\");'></iframe>";}
+		foreach ($Item_Videos as $Video) {$Slide_Counter++; $ProductString .= "<li class='upcp-tabbed-addt-img-thumbs'><a class='upcp-thumb-anchor " . $Lightbox_Class . " upcp-thumb-video' href='" . $Protocol . "img.youtube.com/vi/" . $Video->Item_Video_URL . "/default.jpg' data-videoid='" . $Video->Item_Video_URL . "' data-ulbsource='" . $Protocol . "www.youtube.com/embed/" . $Video->Item_Video_URL . "'><img src='" . $Protocol . "img.youtube.com/vi/" . $Video->Item_Video_URL . "/default.jpg' id='prod-cat-addt-details-thumb-". $Image->Item_Image_ID . "' class='upcp-tabbed-addt-details-thumb " . $Disable_Lightbox . "'></a></li>";}
+		//foreach ($Item_Videos as $Video) {$ProductString .= "<iframe width='300' height='225' src='" . $Protocol . "www.youtube.com/embed/" . $Video->Item_Video_URL . "?rel=0&fs=1' webkitallowfullscreen mozallowfullscreen allowfullscreen onclick='ZoomImage(\"" . $Product->Item_ID . "\", \"" . $Video->Video_ID . "\");'></iframe>";}
 
 	  	/*Next button*/
 	  	$ProductString .= "</ul>";
@@ -1273,7 +1282,9 @@ function SingleProductPage() {
 		$ProductString .= "</div>";
 		$ProductString .= "</div>";
 
-		$ProductString .= "<div class='upcp-tabbed-main-product-container'>";
+		if($Custom_Product_Page != "Shop_Style"){
+			$ProductString .= "<div class='upcp-tabbed-main-product-container'>";
+		}
 
 		$ProductString .= "<div class='upcp-tabbed-main-product-details'>";
 		$ProductString .= "<h2 class='upcp-tabbed-product-name'><span itemprop='name'>" . apply_filters('upcp_product_page_title', $Product->Item_Name, array('Item_ID' => $Product->Item_ID, 'Item_Title' => $Product->Item_Name)) . "</span></h2>";
@@ -1281,6 +1292,10 @@ function SingleProductPage() {
 
 		$ProductString .= UPCP_Add_Product_Page_Social_Media($Product, $SP_Perm_URL_With_HTTP);
 		$ProductString .= "</div>";
+
+		if($Custom_Product_Page == "Shop_Style"){
+			$ProductString .= "<div class='upcp-tabbed-main-product-container'>";
+		}
 
 		$ProductString .= "<div id='upcp-tabbed-tabs-holder-" . $Product->Item_ID . "' class='upcp-tabbed-tabs-holder'>";
 
@@ -1529,6 +1544,7 @@ function BuildSidebar($category, $subcategory, $tags, $prod_name) {
 	if ($ProdCustomFieldsString != "") {$Custom_Fields = $wpdb->get_results("SELECT Field_ID, Field_Name, Field_Control_Type FROM $fields_table_name WHERE Field_ID IN (" . $ProdCustomFieldsString . ") AND Field_Searchable='Yes' ORDER BY Field_Sidebar_Order");}
 	else {$Custom_Fields = array();}
 
+	$SidebarString = "";
 	if ($Hidden_Drop_Down_Sidebar_On_Mobile == "Yes") {
 		$SidebarString .= "<div class='ewd-upcp-filtering-toggle ewd-upcp-filtering-toggle-downcaret'>";
 		$SidebarString .= __("Filter", 'ultimate-product-catalogue');
@@ -1538,7 +1554,6 @@ function BuildSidebar($category, $subcategory, $tags, $prod_name) {
 	}
 	else {$Sidebar_Mobile_Class = "";}
 	$id = "";
-	$SidebarString = "";
 	$SidebarString .= "<div id='prod-cat-sidebar-" . $id . "' class='prod-cat-sidebar " . $Sidebar_Mobile_Class . "'>\n";
 	//$SidebarString .= "<form action='#' name='Product_Catalog_Sidebar_Form'>\n";
 	$SidebarString .= "<form onsubmit='return false;' name='Product_Catalog_Sidebar_Form'>\n";
@@ -1754,17 +1769,19 @@ function BuildSidebar($category, $subcategory, $tags, $prod_name) {
 					$CustomFieldsString .= "<select name='Custom_Field_" . $Custom_Field->Field_ID . "' value='" . $Meta_Value . "'  onchange='UPCP_DisplayPage(\"1\");' id='cf-" . $Custom_Field->Field_ID . "' class='jquery-prod-cf-select' data-fieldid='" . $Custom_Field->Field_ID . "' /> ";
 					$CustomFieldsString .= "<option value='All' id='cf-" . $Custom_Field->Field_ID . "-all' class='jquery-prod-cf-dropdown-value' />" . __("Show All", 'ultimate-product-catalogue') . "</option>";
 					foreach ($ProdCustomFields[$Custom_Field->Field_ID]  as $Meta_Value => $Count) {
-						$CustomFieldsString .= "<option value='" . $Meta_Value . "' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-dropdown-value' />" . $Meta_Value . " <span>(" . $Count . ")</span></option>";
+						if ($Meta_Value != '') {$CustomFieldsString .= "<option value='" . $Meta_Value . "' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-dropdown-value' />" . $Meta_Value . " <span>(" . $Count . ")</span></option>";}
 					}
 					$CustomFieldsString .= "</select>";
 				}
 				else {
 					foreach ($ProdCustomFields[$Custom_Field->Field_ID]  as $Meta_Value => $Count) {
-						$CustomFieldsString .= "<div class='prod-cat-sidebar-cf-value-div prod-sidebar-checkbox-" . $Sidebar_Checkbox_Style . " checkbox-color-" . $Color . "'>";
-						if ($Custom_Field->Field_Control_Type == "Radio") {$CustomFieldsString .= "<input type='radio' name='Custom_Field_" . $Custom_Field->Field_ID . "' value='" . $Meta_Value . "'  onclick='UPCP_DisplayPage(\"1\"); UPCPHighlight(this, \"" . $Color . "\");' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-value' /> ";}
-						elseif ($Custom_Field->Field_Control_Type != "Radio" and $Custom_Field->Field_Control_Type != "Slider") {$CustomFieldsString .= "<input type='checkbox' name='Custom_Field[]' value='" . $Meta_Value . "'  onclick='UPCP_DisplayPage(\"1\"); UPCPHighlight(this, \"" . $Color . "\");' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-value' /> ";}
-						$CustomFieldsString .= "<label class='upcp-label' for='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "'><span>" . $Meta_Value . " <span>(" . $Count . ")</span></span></label>";
-						$CustomFieldsString .= "</div>";
+						if ($Meta_Value != '') {
+							$CustomFieldsString .= "<div class='prod-cat-sidebar-cf-value-div prod-sidebar-checkbox-" . $Sidebar_Checkbox_Style . " checkbox-color-" . $Color . "'>";
+							if ($Custom_Field->Field_Control_Type == "Radio") {$CustomFieldsString .= "<input type='radio' name='Custom_Field_" . $Custom_Field->Field_ID . "' value='" . $Meta_Value . "'  onclick='UPCP_DisplayPage(\"1\"); UPCPHighlight(this, \"" . $Color . "\");' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-value' /> ";}
+							elseif ($Custom_Field->Field_Control_Type != "Radio" and $Custom_Field->Field_Control_Type != "Slider") {$CustomFieldsString .= "<input type='checkbox' name='Custom_Field[]' value='" . $Meta_Value . "'  onclick='UPCP_DisplayPage(\"1\"); UPCPHighlight(this, \"" . $Color . "\");' id='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "' class='jquery-prod-cf-value' /> ";}
+							$CustomFieldsString .= "<label class='upcp-label' for='cf-" . $Custom_Field->Field_ID . "-" . $Meta_Value . "'><span>" . $Meta_Value . " <span>(" . $Count . ")</span></span></label>";
+							$CustomFieldsString .= "</div>";
+						}
 					}
 				}
 				$CustomFieldsString .= "</div>";
@@ -2012,9 +2029,9 @@ function UPCP_Get_Related_Products($Product, $Related_Type = "Auto") {
 		$Ordered_Sub_Cat_Products = array();
 		$Ordered_Cat_Products = array();
 
-		$Sub_Category_Products = $wpdb->get_results("SELECT * FROM $items_table_name WHERE SubCategory_ID='" . $Product->SubCategory_ID . "' AND Item_ID!='" . $Product->Item_ID . "'", ARRAY_A);
+		$Sub_Category_Products = $wpdb->get_results("SELECT * FROM $items_table_name WHERE SubCategory_ID='" . $Product->SubCategory_ID . "' AND Item_ID!='" . $Product->Item_ID . "' AND Item_Display_Status='Show'", ARRAY_A);
 		if ($wpdb->num_rows < 5) {
-			$Category_Products = $wpdb->get_results("SELECT * FROM $items_table_name WHERE Category_ID='" . $Product->Category_ID . "' AND SubCategory_ID!='" . $Product->SubCategory_ID . "' AND Item_ID!='" . $Product->Item_ID . "'", ARRAY_A);
+			$Category_Products = $wpdb->get_results("SELECT * FROM $items_table_name WHERE Category_ID='" . $Product->Category_ID . "' AND SubCategory_ID!='" . $Product->SubCategory_ID . "' AND Item_ID!='" . $Product->Item_ID . "' AND Item_Display_Status='Show'", ARRAY_A);
 		}
 
 		$Ordered_Sub_Cat_Products = Order_Products($Selected_Product, $Sub_Category_Products);
@@ -2388,6 +2405,7 @@ function UPCP_Get_Catalog_Overview($Catalogue_Items, $Overview_Type, $Category_I
 		if ($Item->$Image_Name != "" and $Item->$Image_Name != "http://") {$ReturnString .= "<div class='upcp-overview-mode-image " . $Class_Added . "'><img src='" . $Item->$Image_Name . "' /></div>";}
 		else {$ReturnString .= "<div class='upcp-overview-mode-image " . $Class_Added . "'><img src='" . plugins_url() . "/ultimate-product-catalogue/images/No-Photo-Available.png' /></div>";}
 		$ReturnString .= "<div class='upcp-overview-mode-title " . $Class_Added . "'>" . $Item->$Title_Name . "</div>";
+		
 		$ReturnString .= "</div>";
 		$ReturnString .= "</a>";
 	}
@@ -2628,7 +2646,7 @@ function UPCP_Add_WC_Cart_HTML() {
 	else {$WooCommerce_Checkout_Page_ID = get_option("woocommerce_checkout_page_id");}
 
 	if (isset($_COOKIE['upcp_cart_products'])) {
-		$Products_Array = unserialize(str_replace('\"', '"', $_COOKIE['upcp_cart_products']));
+		$Products_Array = explode(",", $_COOKIE['upcp_cart_products']);
 			if (is_array($Products_Array)) {$Cart_Item_Count = sizeof($Products_Array);}
 			else {$Cart_Item_Count = 0;}
 	}
@@ -2662,7 +2680,7 @@ function UPCP_Add_Inquiry_Cart_HTML() {
 	if($Empty_Cart_Label == ""){$Empty_Cart_Label = __('or empty cart', 'ultimate-product-catalogue');}
 
 	if (!isset($_COOKIE['upcp_cart_products'])) {
-		$Products_Array = unserialize(str_replace('\"', '"', $_COOKIE['upcp_cart_products']));
+		$Products_Array = explode(",", $_COOKIE['upcp_cart_products']);
 			if (is_array($Products_Array)) {$Cart_Item_Count = sizeof($Products_Array);}
 			else {$Cart_Item_Count = 0;}
 	}
@@ -2706,7 +2724,7 @@ function UPCP_Single_Page_Inquiry_Form() {
 
 		$ReturnString .= __("Please use the form below to enquire about the following products:", 'ultimate-product-catalogue') . "<br>";
 		if (isset($_COOKIE['upcp_cart_products'])) {
-			$Products_Array = unserialize(str_replace('\"', '"', $_COOKIE['upcp_cart_products']));
+			$Products_Array = explode(",", $_COOKIE['upcp_cart_products']);
 			if (is_array($Products_Array)) {
 				foreach ($Products_Array as $Product_ID) {
 					$Product_Name = $wpdb->get_var($wpdb->prepare("SELECT Item_Name FROM $items_table_name WHERE Item_ID=%d", $Product_ID));

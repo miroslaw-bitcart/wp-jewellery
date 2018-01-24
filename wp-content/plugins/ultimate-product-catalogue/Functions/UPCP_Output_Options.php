@@ -39,7 +39,8 @@ function UPCP_Output_Options() {
 		$_GET['Action'] == "UPCP_Tag_Details" or 
 		$_GET['Action'] == "UPCP_Tag_Groups" or
 		$_GET['Action'] == "UPCP_Optional_Image" or
-		$_GET['Action'] == "UPCP_Field_Details") {
+		$_GET['Action'] == "UPCP_Field_Details" or
+		$_GET['Action'] == "UPCP_MassDeleteCatalogueItems") {
 			include UPCP_CD_PLUGIN_PATH . 'html/ItemDetails.php';
 	}
 	elseif (isset($_GET['Update_Item'])){

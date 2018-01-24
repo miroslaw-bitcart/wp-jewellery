@@ -102,6 +102,7 @@ function UPCP_Dynamic_Disabling(CatValues) {
 		jQuery('.jquery-prod-sub-cat-value').prop('disabled', true);
 		jQuery('.jquery-prod-sub-cat-value').each(function() {
 			if (jQuery.inArray(jQuery(this).data('parent') + "", CatValues) !== -1) {jQuery(this).prop('disabled', false);}
+			else {jQuery(this).parent().removeClass('highlightBlack');}
 		});
 		jQuery('.jquery-prod-sub-cat-value').each(function() {
 			if (jQuery(this).prop('disabled')) {jQuery(this).prop('checked', false).trigger('change');}
@@ -290,6 +291,7 @@ function UPCP_Ajax_Filter(AddResults) {
 	var current_layout = jQuery('#upcp-current-layout').html();
 	var excluded_layouts = jQuery('#upcp-excluded-layouts').html();
 	var current_page = jQuery('#upcp-current-page').html();
+	var products_per_page = jQuery('#upcp-products-per-page').html();
 	var base_url = jQuery('#upcp-base-url').html();
 	var default_search_text = jQuery('#upcp-default-search-text').html();
 
@@ -338,9 +340,8 @@ function UPCP_Ajax_Filter(AddResults) {
 	if (AddResults == "Yes") {jQuery('.upcp-infinite-scroll-content-area').html('<h3>'+ajax_translations.updating_results_label+'</h3>');}
 	else {jQuery('.prod-cat-inner').html('<h3>'+ajax_translations.updating_results_label+'</h3>');}
 	RequestCount = RequestCount + 1;
-	var data = 'id=' + id + '&sidebar=' + sidebar + '&start_layout=' + current_layout + '&excluded_layouts=' + excluded_layouts + '&ajax_url=' + base_url + '&current_page=' + current_page + '&default_search_text=' + default_search_text + '&ajax_reload=Yes' + '&Prod_Name=' + SelectedProdName + '&max_price=' + max_price + '&min_price=' + min_price + '&Category=' + CatValues + '&SubCategory=' + SubCatValues + '&Tags=' + TagBoxValues + '&Custom_Fields=' + encodeURIComponent(CFBoxValues) + '&request_count=' + RequestCount + '&action=update_catalogue';
+	var data = 'id=' + id + '&sidebar=' + sidebar + '&start_layout=' + current_layout + '&excluded_layouts=' + excluded_layouts + '&ajax_url=' + base_url + '&current_page=' + current_page + '&products_per_page=' + products_per_page + '&default_search_text=' + default_search_text + '&ajax_reload=Yes' + '&Prod_Name=' + SelectedProdName + '&max_price=' + max_price + '&min_price=' + min_price + '&Category=' + CatValues + '&SubCategory=' + SubCatValues + '&Tags=' + TagBoxValues + '&Custom_Fields=' + encodeURIComponent(CFBoxValues) + '&request_count=' + RequestCount + '&action=update_catalogue';
 	jQuery.post(ajaxurl, data, function(response) {
-		response = response.substring(0, response.length - 1);
 		var parsed_response = jQuery.parseJSON(response);
 		if (parsed_response.request_count == RequestCount) {
 			if (AddResults == "Yes") {jQuery('.upcp-infinite-scroll-content-area').replaceWith(parsed_response.message);}
@@ -391,7 +392,7 @@ function addProductcomparisonClickHandlers() {
 			Product_Name_String = Product_Name_String.slice(0, -2);
 			var replacement = " and";
 			Product_Name_String = Product_Name_String.replace(/,([^,]*)$/,replacement+'$1');
-			jQuery('#upcp-product-comparison-form').append('<div class="upcp-prod-comp-submit-instructions">Compare ' + Product_Name_String + ' side by side!<input type="submit" value="Compare" /></div>');
+			jQuery('#upcp-product-comparison-form').append('<div class="upcp-prod-comp-submit-instructions">' + ajax_translations.compare_label + ' ' + Product_Name_String + ' ' + ajax_translations.side_by_side_label + '!<input type="submit" value="' + ajax_translations.compare_label + '" /></div>');
 
 			adjustCatalogueHeight();
 		}

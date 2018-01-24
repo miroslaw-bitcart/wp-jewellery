@@ -66,8 +66,11 @@ function Update_UPCP_Content() {
 			case "UPCP_MassDeleteCatalogues":
 					$upcp_message = Mass_Delete_Catalogues();
 					break;
+			case "UPCP_MassDeleteCatalogueItems":
+					$upcp_message = Mass_Delete_Catalogue_Items();
+					break;
 			case "UPCP_DeleteCatalogueItem":
-					$upcp_message = Delete_Products_Catalogue();
+					$upcp_message = Delete_Catalogue_Item($_GET['Catalogue_Item_ID']);
 					break;
 			case "UPCP_EditSubCategory":
 			case "UPCP_AddSubCategory":

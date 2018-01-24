@@ -30,6 +30,7 @@ if ($_GET['CPP_Mobile'] == "Tabbed" or $_GET['CPP_Mobile'] == "") {
 	</div>
 
 	<form method="post" action="admin.php?page=UPCP-options&DisplayPage=ProductPage&CPP_Mobile=Tabbed&Action=UPCP_UpdateTabs">
+	<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 	<input type='hidden' name='upcp_tabs_confirmation' value='Confirm' />
 	<table class="form-table">
 	<tr>

@@ -576,16 +576,16 @@ function Delete_UPCP_Catalogue($Catalogue_ID) {
 }
 
 /* Deletes a single product with a given ID from a catalogue in the UPCP database */
-function Delete_Products_Catalogue() {
+function Delete_Catalogue_Item($Catalogue_Item_ID) {
 		global $wpdb;
 		global $catalogues_table_name;
 		global $catalogue_items_table_name;
 
-		$Catalogue_ID = $wpdb->get_var($wpdb->prepare("SELECT Catalogue_ID FROM $catalogue_items_table_name WHERE Catalogue_Item_ID='%d'", $_GET['Catalogue_Item_ID']));
+		$Catalogue_ID = $wpdb->get_var($wpdb->prepare("SELECT Catalogue_ID FROM $catalogue_items_table_name WHERE Catalogue_Item_ID='%d'", $Catalogue_Item_ID));
 
 		$wpdb->delete(
 						$catalogue_items_table_name,
-						array('Catalogue_Item_ID' => $_GET['Catalogue_Item_ID'])
+						array('Catalogue_Item_ID' => $Catalogue_Item_ID)
 					);
 
 		Update_Catalogue_Item_Count($Catalogue_ID);
@@ -611,8 +611,6 @@ function Add_UPCP_Product($Item_Name, $Item_Slug, $Item_Photo_URL, $Item_Descrip
 
 
 		$WooCommerce_Sync = get_option("UPCP_WooCommerce_Sync");
-
-		if (!wp_verify_nonce($_POST['_wpnonce']) and $Skip_Nonce != "Yes") {return __("There has been a validation error.", 'ultimate-product-catalogue');}
 
 		$Prod_Count = $wpdb->get_var("SELECT COUNT(*) FROM " . $items_table_name);
 
@@ -683,24 +681,24 @@ function Add_UPCP_Product($Item_Name, $Item_Slug, $Item_Photo_URL, $Item_Descrip
 										else {$Value = $File_Upload_Return['Data'];}
 								}
 								elseif ($Field->Field_Type == "checkbox") {
-									if (!isset($Value)) { $Value = "";}
-										foreach ($_POST[$FieldName] as $SingleValue) {$Value .= trim($SingleValue) . ",";}
-										$Value = substr($Value, 0, strlen($Value)-1);
+									$Value = "";
+									foreach ($_POST[$FieldName] as $SingleValue) {$Value .= trim($SingleValue) . ",";}
+									$Value = substr($Value, 0, strlen($Value)-1);
 								}
 								else {
 									  $Value = stripslashes_deep(trim($_POST[$FieldName]));
 										$Options = explode(",", $Field->Field_Values);
 										if (sizeOf($Options) > 0 and $Options[0] != "") {
-									  	  array_walk($Options, create_function('&$val', '$val = trim($val);'));
-												$InArray = in_array($Value, $Options);
+									  	 	array_walk($Options, create_function('&$val', '$val = trim($val);'));
+											$InArray = in_array($Value, $Options);
 										}
 								}
 								if (!isset($InArray) or $InArray) {
-									  if ((isset($NoFile)) and ($NoFile != "Yes" and $NoFile != "Delete")) {
+									  if (!(isset($NoFile)) or ($NoFile != "Yes" and $NoFile != "Delete")) {
 										$wpdb->insert($fields_meta_table_name,
 															array( 'Field_ID' => $Field->Field_ID,
-																		 'Item_ID' => $Item_ID,
-																		 'Meta_Value' => $Value)
+																	'Item_ID' => $Item_ID,
+																	'Meta_Value' => $Value)
 												);
 										}
 										elseif (isset($NoFile) and $NoFile == "Delete") {
@@ -750,9 +748,6 @@ function Edit_UPCP_Product($Item_ID, $Item_Name, $Item_Slug, $Item_Photo_URL, $I
 		$SubCategory_Name = "";  
 		
 		$WooCommerce_Sync = get_option("UPCP_WooCommerce_Sync");
-		if (!isset($_POST['_wpnonce'])){$_POST['_wpnonce'] = "";}
-
-		if (!wp_verify_nonce($_POST['_wpnonce']) and $Skip_Nonce != "Yes") {return __("There has been a validation error.", 'ultimate-product-catalogue');}
 
 		// Delete the tagged item in the tagged items table for the given Item_ID
 		// and update the Item_Count column in the tags table in the database
@@ -829,9 +824,11 @@ function Edit_UPCP_Product($Item_ID, $Item_Name, $Item_Slug, $Item_Photo_URL, $I
 											$wpdb->delete($fields_meta_table_name, array('Item_ID' => $Item_ID, 'Field_ID' => $Field->Field_ID));
 											$File_Upload_Return = UPCP_Handle_File_Upload($FieldName);
 											if ($File_Upload_Return['Success'] == "No") {return $File_Upload_Return['Data'];}
+											elseif ($File_Upload_Return['Success'] == "N/A" and isset($_POST['Delete_' . $FieldName])) {$NoFile = "Delete";}
 											elseif ($File_Upload_Return['Success'] == "N/A") {$NoFile = "Yes";}
 											else {$Value = $File_Upload_Return['Data'];}
 										}
+										elseif (isset($_POST['Delete_' . $FieldName])) {$NoFile = "Delete";}
 										else {$NoFile = "Yes";}
 								}
 								elseif ($Field->Field_Type == "checkbox") {
@@ -843,20 +840,24 @@ function Edit_UPCP_Product($Item_ID, $Item_Name, $Item_Slug, $Item_Photo_URL, $I
 									  $Value = stripslashes_deep(trim($_POST[$FieldName]));
 										$Options = explode(",", $Field->Field_Values);
 										if (sizeOf($Options) > 0 and $Options[0] != "") {
-									  	  array_walk($Options, create_function('&$val', '$val = trim($val);'));
-												$InArray = in_array($Value, $Options);
+									  		array_walk($Options, create_function('&$val', '$val = trim($val);'));
+											$InArray = in_array($Value, $Options);
 										}
 								}
+
 								if (!isset($InArray) or $InArray) {
-									  if ((!isset($NoFile)) OR $NoFile != "Yes") {
+									  if ((!isset($NoFile)) OR ($NoFile != "Yes" and $NoFile != "Delete")) {
 											  $wpdb->insert($fields_meta_table_name,
 															array( 'Field_ID' => $Field->Field_ID,
-																		 'Item_ID' => $Item_ID,
-																		 'Meta_Value' => $Value)
+																	'Item_ID' => $Item_ID,
+																	'Meta_Value' => $Value)
 												);
 										}
 								}
 								elseif ($InArray == false) {$CustomFieldError = __(" One or more custom field values were incorrect.", 'ultimate-product-catalogue');}
+								
+								if ($NoFile == "Delete") {$wpdb->query($wpdb->prepare("DELETE FROM $fields_meta_table_name WHERE Item_ID=%d AND Field_ID=%d", $Item_ID, $Field->Field_ID));}
+
 								unset($Value);
 								unset($InArray);
 								unset($NoFile);
@@ -897,8 +898,7 @@ function Add_UPCP_Products_From_Spreadsheet($Excel_File_Name) {
 		global $catalogues_table_name;
 		global $Full_Version;
 //$wpdb->show_errors();
-		if (!wp_verify_nonce($_POST['_wpnonce'])) {return __("There has been a validation error.", 'ultimate-product-catalogue');}
-
+		
 		$Excel_URL = '../wp-content/plugins/ultimate-product-catalogue/product-sheets/' . $Excel_File_Name;
 
 		// Uses the PHPExcel class to simplify the file parsing process
@@ -913,7 +913,7 @@ function Add_UPCP_Products_From_Spreadsheet($Excel_File_Name) {
 		$sheet = $objWorkBook->getActiveSheet();
 
 		//List of fields that can be accepted via upload
-		$Allowed_Fields = array ("Name" => "Item_Name", "Slug" => "Item_Slug", "Description" => "Item_Description", "Price" => "Item_Price", "Sale Price" => "Item_Sale_Price", "Image" => "Item_Photo_URL", "Link" => "Item_Link", "Category" => "Category_Name", "Sub-Category" => "SubCategory_Name", "Tags" => "Tags_Names_String", "Catalogue ID" => "Catalogue_ID");
+		$Allowed_Fields = array ("Name" => "Item_Name", "Slug" => "Item_Slug", "Description" => "Item_Description", "Price" => "Item_Price", "Sale Price" => "Item_Sale_Price", "Image" => "Item_Photo_URL", "Link" => "Item_Link", "Category" => "Category_Name", "Sub-Category" => "SubCategory_Name", "Tags" => "Tags_Names_String", "SEO Description" => "Item_SEO_Description", "Display" => "Item_Display_Status", "Catalogue ID" => "Catalogue_ID");
 		$Custom_Fields_From_DB = $wpdb->get_results("SELECT Field_ID, Field_Name, Field_Values, Field_Type FROM $fields_table_name");
 		if (is_array($Custom_Fields_From_DB)) {
 			  foreach ($Custom_Fields_From_DB as $Custom_Field_From_DB) {
@@ -1035,7 +1035,7 @@ function Add_UPCP_Products_From_Spreadsheet($Excel_File_Name) {
 							$Custom_Fields_To_Insert[$Custom_Fields[$Col_Index]] = $Value;
 						}
 						if (isset($Cat_ID_Column) and $Cat_ID_Column == $Col_Index and $Value != "") {
-							$Cat_ID = $Value;
+							$Cat_IDs = $Value;
 						}
 						if (in_array($Col_Index, $Additional_Images_Cols) and $Value != "") {
 							$Additional_Images[] = $Value;
@@ -1060,10 +1060,13 @@ function Add_UPCP_Products_From_Spreadsheet($Excel_File_Name) {
 					}
 				}
 
-				if (isset($Cat_ID)) {
-					  $wpdb->query(
-								$wpdb->prepare("INSERT INTO $catalogue_items_table_name (Catalogue_ID, Item_ID) VALUES ('%d','%d')", $Cat_ID, $Item_ID)
+				if (isset($Cat_IDs)) {
+					$Cat_ID_Array = explode(",", $Cat_IDs);
+					foreach ($Cat_ID_Array as $Cat_ID) {
+						$wpdb->query(
+							$wpdb->prepare("INSERT INTO $catalogue_items_table_name (Catalogue_ID, Item_ID) VALUES ('%d','%d')", $Cat_ID, $Item_ID)
 						);
+					}
 				}
 
 				if (is_array($Custom_Fields_To_Insert)) {
@@ -1091,7 +1094,7 @@ function Add_UPCP_Products_From_Spreadsheet($Excel_File_Name) {
 				unset($ValuesString);
 				unset($Tags_Name_Array);
 				unset($Custom_Fields_To_Insert);
-				unset($Cat_ID);
+				unset($Cat_IDs);
 				unset($Additional_Images);
 				unset($Video_IDs);
 		}
@@ -1205,6 +1208,11 @@ function Delete_Product_Image() {
 /* Updates the main plugin options in the WordPress database */
 function Update_UPCP_Options() {
 	global $Full_Version;
+
+	if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 	$Social_Media = "";
 	$InstallVersion = get_option("UPCP_First_Install_Version");
 	if (!isset($_POST['product_inquiry_form'])){ $_POST['product_inquiry_form'] = "";}
@@ -1259,6 +1267,7 @@ function Update_UPCP_Options() {
 	if ($Full_Version == "Yes" and isset($_POST['product_comparison'])) {update_option("UPCP_Product_Comparison", $_POST['product_comparison']);}
 	if ($Full_Version == "Yes" and isset($_POST['product_inquiry_form'])) {update_option("UPCP_Product_Inquiry_Form", $_POST['product_inquiry_form']);}
 	if ($Full_Version == "Yes" and isset($_POST['product_inquiry_cart'])) {update_option("UPCP_Product_Inquiry_Cart", $_POST['product_inquiry_cart']);}
+	if ($Full_Version == "Yes" and isset($_POST['inquiry_form_email'])) {update_option("UPCP_Inquiry_Form_Email", $_POST['inquiry_form_email']);}
 	if ($Full_Version == "Yes" and isset($_POST['product_reviews'])) {update_option("UPCP_Product_Reviews", $_POST['product_reviews']);}
 	if ($Full_Version == "Yes" and isset($_POST['catalog_display_reviews'])) {update_option("UPCP_Catalog_Display_Reviews", $_POST['catalog_display_reviews']);}
 	if ($Full_Version == "Yes" and isset($_POST['lightbox'])) {update_option("UPCP_Lightbox", $_POST['lightbox']);}
@@ -1312,6 +1321,9 @@ function Update_UPCP_Options() {
 	if ($Full_Version == "Yes" and isset($_POST['next_product_label'])) {update_option("UPCP_Next_Product_Label", $_POST['next_product_label']);}
 	if ($Full_Version == "Yes" and isset($_POST['previous_product_label'])) {update_option("UPCP_Previous_Product_Label", $_POST['previous_product_label']);}
 	if ($Full_Version == "Yes" and isset($_POST['of_pagination_label'])) {update_option("UPCP_Of_Pagination_Label", $_POST['of_pagination_label']);}
+	if ($Full_Version == "Yes" and isset($_POST['compare_label'])) {update_option("UPCP_Compare_Label", $_POST['compare_label']);}
+	if ($Full_Version == "Yes" and isset($_POST['sale_label'])) {update_option("UPCP_Sale_Label", $_POST['sale_label']);}
+	if ($Full_Version == "Yes" and isset($_POST['side_by_side_label'])) {update_option("UPCP_Side_By_Side_Label", $_POST['side_by_side_label']);}
 	if ($Full_Version == "Yes" and isset($_POST['inquire_button_label'])) {update_option("UPCP_Inquire_Button_Label", $_POST['inquire_button_label']);}
 	if ($Full_Version == "Yes" and isset($_POST['add_to_cart_button_label'])) {update_option("UPCP_Add_To_Cart_Button_Label", $_POST['add_to_cart_button_label']);}
 	if ($Full_Version == "Yes" and isset($_POST['send_inquiry_label'])) {update_option("UPCP_Send_Inquiry_Label", $_POST['send_inquiry_label']);}
@@ -1467,6 +1479,10 @@ function Update_UPCP_Options() {
 }
 
 function UPCP_Save_Additional_Tabs() {
+	if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+    
 	$Counter = 0;
 	while ($Counter < 30) {
 		if (isset($_POST['Tab_' . $Counter . '_Name'])) {

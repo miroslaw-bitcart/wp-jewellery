@@ -70,7 +70,8 @@ function UPCP_Move_Additional_Catalogue_Styles() {
 		}
 	}
 
-	$JS_Files = scandir($WP_Directory['basedir'] . "/upcp-addtl-styles/js");
+	if (is_dir($Directory['basedir'] . '/upcp-addtl-styles/js')) {$JS_Files = scandir($WP_Directory['basedir'] . "/upcp-addtl-styles/js");}
+	else {$JS_Files = false;}
 	if ($JS_Files) {
 		foreach ($JS_Files as $File) {
 			$from = $WP_Directory['basedir'] . "/upcp-addtl-styles/js/" . $File; 
@@ -84,6 +85,9 @@ function UPCP_Move_Additional_Catalogue_Styles() {
 
 function UPCP_Modify_Upload_Dir($Directory) {
     global $Extension;
+
+    if (!is_dir($Directory['basedir'] . '/upcp-addtl-styles/')) {mkdir($Directory['basedir'] . '/upcp-addtl-styles/');}
+    if (!is_dir($Directory['basedir'] . '/upcp-addtl-styles/' . $Extension)) {mkdir($Directory['basedir'] . '/upcp-addtl-styles/' . $Extension);}
 
     return array(
         'path'   => $Directory['basedir'] . '/upcp-addtl-styles/' . $Extension,

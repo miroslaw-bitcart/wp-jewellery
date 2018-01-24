@@ -3,6 +3,10 @@
 function Add_Edit_Product() {
 	$Apply_Contents_Filter = get_option("UPCP_Apply_Contents_Filter");
 
+	if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 	$Global_Item_ID = "";
 	$Item_Special_Attr = "";
 	$Related_Products = "";
@@ -55,9 +59,14 @@ function Add_Edit_Product() {
 }
 /* Prepare the data to add multiple products from a spreadsheet */
 function Add_Products_From_Spreadsheet() {
-	$Excel_File_Name = "";
+		$Excel_File_Name = "";
 		if (!is_user_logged_in()) {exit();}
 		/* Test if there is an error with the uploaded spreadsheet and return that error if there is */
+
+		if ( ! isset( $_POST['UPCP_Spreadsheet_Nonce'] ) ) {return;}
+
+    	if ( ! wp_verify_nonce( $_POST['UPCP_Spreadsheet_Nonce'], 'UPCP_Spreadsheet_Nonce' ) ) {return;}
+
 		if (!empty($_FILES['Products_Spreadsheet']['error']))
 		{
 				switch($_FILES['Products_Spreadsheet']['error'])
@@ -266,6 +275,10 @@ function Prepare_Details_Image() {
 
 /* Prepare the data to add a new category */
 function Add_Edit_Category() {
+		if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    	if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 		/* Process the $_POST data where neccessary before storage */
 		$Category_Name = (isset($_POST['Category_Name']) ? stripslashes_deep($_POST['Category_Name']) : '');
 		$Category_Description = (isset($_POST['Category_Description']) ? stripslashes_deep($_POST['Category_Description']) : '');
@@ -310,6 +323,10 @@ function Mass_Delete_Categories() {
 
 /* Prepare the data to add a new sub-category */
 function Add_Edit_SubCategory() {
+		if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    	if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 		/* Process the $_POST data where neccessary before storage */
 		$SubCategory_Name = stripslashes_deep($_POST['SubCategory_Name']);
 		$Category_ID = $_POST['Category_ID'];
@@ -355,6 +372,10 @@ function Mass_Delete_SubCategories() {
 
 /* Prepare the data to add a new tag */
 function Add_Edit_Tag() {
+	if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 	/* Process the $_POST data where neccessary before storage */
 	$Tag_Name = (isset($_POST['Tag_Name']) ? stripslashes_deep($_POST['Tag_Name']) : '');
 	$Tag_Description = (isset($_POST['Tag_Description']) ? stripslashes_deep($_POST['Tag_Description']) : '');
@@ -400,6 +421,10 @@ function Mass_Delete_UPCP_Tags() {
 }
 
 function Add_Edit_Tag_Group(){
+	if ( ! isset( $_POST['UPCP_Tag_Group_Nonce'] ) ) {return;}
+
+    if ( ! wp_verify_nonce( $_POST['UPCP_Tag_Group_Nonce'], 'UPCP_Tag_Group_Nonce' ) ) {return;}
+
 	/* Process the $_POST data where neccessary before storage */
 	$Tag_Group_Name = stripslashes_deep($_POST['Tag_Group_Name']);
 	$Tag_Group_Description = stripslashes_deep($_POST['Tag_Group_Description']);
@@ -425,6 +450,10 @@ function Add_Edit_Tag_Group(){
 }
 
 function Add_Edit_Custom_Field() {
+		if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    	if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 		if (!isset($_POST['Field_ID'])) { $_POST['Field_ID'] = ""; }
 		/* Process the $_POST data where neccessary before storage */
 		$Field_Name = stripslashes_deep($_POST['Field_Name']);
@@ -475,6 +504,10 @@ function Mass_Delete_UPCP_Custom_Fields() {
 
 /* Prepare the data to add a new catalogue */
 function Add_Edit_Catalogue() {
+		if ( ! isset( $_POST['UPCP_Element_Nonce'] ) ) {return;}
+
+    	if ( ! wp_verify_nonce( $_POST['UPCP_Element_Nonce'], 'UPCP_Element_Nonce' ) ) {return;}
+
 		/* Process the $_POST data where neccessary before storage */
 		$Catalogue_Name = (isset($_POST['Catalogue_Name']) ? stripslashes_deep($_POST['Catalogue_Name']) : '');
 		$Catalogue_Description = (isset($_POST['Catalogue_Description']) ? stripslashes_deep($_POST['Catalogue_Description']) : '');
@@ -502,19 +535,35 @@ function Add_Edit_Catalogue() {
 }
 
 function Mass_Delete_Catalogues() {
-		$Catalogues = $_POST['Catalogues_Bulk'];
+	$Catalogues = $_POST['Catalogues_Bulk'];
 
-		if (is_array($Catalogues)) {
-				foreach ($Catalogues as $Catalogue) {
-						if ($Catalogue != "") {
-								Delete_UPCP_Catalogue($Catalogue);
-						}
-				}
+	if (is_array($Catalogues)) {
+		foreach ($Catalogues as $Catalogue) {
+			if ($Catalogue != "") {
+				Delete_UPCP_Catalogue($Catalogue);
+			}
 		}
+	}
 
-		$update = __("Catalogues have been successfully deleted.", 'ultimate-product-catalogue');
-		$user_update = array("Message_Type" => "Update", "Message" => $update);
-		return $user_update;
+	$update = __("Catalogues have been successfully deleted.", 'ultimate-product-catalogue');
+	$user_update = array("Message_Type" => "Update", "Message" => $update);
+	return $user_update;
+}
+
+function Mass_Delete_Catalogue_Items() {
+	$Catalogue_Items = $_POST['Catalogue_Item_ID'];
+
+	if (is_array($Catalogue_Items)) {
+		foreach ($Catalogue_Items as $Catalogue_Item) {
+			if ($Catalogue_Item != "") {
+				Delete_Catalogue_Item($Catalogue_Item);
+			}
+		}
+	}
+
+	$update = __("Catalogue items have been successfully deleted.", 'ultimate-product-catalogue');
+	$user_update = array("Message_Type" => "Update", "Message" => $update);
+	return $user_update;
 }
 
 function UPCP_Handle_File_Upload($Field_Name) {

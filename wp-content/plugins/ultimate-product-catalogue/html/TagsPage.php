@@ -3,7 +3,6 @@
 <div class="col-wrap">
 
 <!-- Display a list of the tags which have already been created -->
-<?php wp_nonce_field(); ?>
 <?php wp_referer_field(); ?>
 
 <?php 
@@ -189,7 +188,7 @@
 <h3><?php _e("Add a New Tag", 'ultimate-product-catalogue') ?></h3>
 <form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddTag&DisplayPage=Tag" class="validate" enctype="multipart/form-data">
 <input type="hidden" name="action" value="Add_Tag" />
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 <?php wp_referer_field(); ?>
 <div class="form-field form-required">
 	<label for="Tag_Name"><?php _e("Name", 'ultimate-product-catalogue')?></label>
@@ -233,7 +232,7 @@
 <h3><?php _e("Add a New Tag Group", 'ultimate-product-catalogue') ?></h3>
 <form id="addtaggroup" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddTagGroup&DisplayPage=Tag" class="validate" enctype="multipart/form-data">
 <input type="hidden" name="action" value="Add_Tag_Group" />
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Tag_Group_Nonce', 'UPCP_Tag_Group_Nonce'); ?>
 <?php wp_referer_field(); ?>
 <div class="form-field form-required">
 	<label for="Tag_Group_Name"><?php _e("New Tag Group",'ultimate-product-catalogue') ?></label>

@@ -34,7 +34,7 @@
 						<input type="hidden" name="action" value="Edit_Tag" />
 						<input type="hidden" name="Tag_ID" value="<?php echo $Tag->Tag_ID; ?>" />
 						<input type="hidden" name="WC_term_id" value="<?php echo $Tag->Tag_WC_ID; ?>" />
-						<?php wp_nonce_field(); ?>
+						<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 						<?php wp_referer_field(); ?>
 						<div class='form-field'>
 								<label for="Tag_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>

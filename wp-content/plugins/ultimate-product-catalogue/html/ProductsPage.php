@@ -20,16 +20,16 @@
 
 			if (isset($_GET['Page']) and $_GET['DisplayPage'] == "Products") {$Page = $_GET['Page'];}
 			else {$Page = 1;}
-			if ($Page < 1) {$Page = 1;}
+			if ($Page < 1 or !is_numeric($Page)) {$Page = 1;}
 			$wpdb->show_errors();
 			$Sql = "SELECT * FROM $items_table_name WHERE 1=1 ";
-				if (isset($_REQUEST['ItemName'])) {$Sql .= "AND Item_Name LIKE '%" . $_REQUEST['ItemName'] . "%' ";}
-				if (isset($_REQUEST['UPCP_Category_Filter']) and $_REQUEST['UPCP_Category_Filter'] != "All") {$Sql .= "AND Category_ID='" . $_REQUEST['UPCP_Category_Filter'] . "' ";}
-				if (isset($_REQUEST['UPCP_SubCategory_Filter']) and $_REQUEST['UPCP_SubCategory_Filter'] != "All") {$Sql .= "AND SubCategory_ID='" . $_REQUEST['UPCP_SubCategory_Filter'] . "' ";}
-				if (isset($_GET['OrderBy']) and $_GET['DisplayPage'] == "Products") {$Sql .= "ORDER BY " . $_GET['OrderBy'] . " ";}
+				if (isset($_REQUEST['ItemName'])) {$Sql .= "AND Item_Name LIKE '%" . sanitize_text_field($_REQUEST['ItemName']) . "%' ";}
+				if (isset($_REQUEST['UPCP_Category_Filter']) and $_REQUEST['UPCP_Category_Filter'] != "All") {$Sql .= "AND Category_ID='" . sanitize_text_field($_REQUEST['UPCP_Category_Filter']) . "' ";}
+				if (isset($_REQUEST['UPCP_SubCategory_Filter']) and $_REQUEST['UPCP_SubCategory_Filter'] != "All") {$Sql .= "AND SubCategory_ID='" . sanitize_text_field($_REQUEST['UPCP_SubCategory_Filter']) . "' ";}
+				if (isset($_GET['OrderBy']) and $_GET['DisplayPage'] == "Products") {$Sql .= "ORDER BY " . sanitize_text_field($_GET['OrderBy']) . " ";}
 				else {$Sql .= "ORDER BY Item_Date_Created ";}
 				if (isset($_GET['OrderBy']) and $_GET['DisplayPage'] == "Products" and $_GET['OrderBy'] == "Item_Price") {$Sql .= "* 1 ";}
-				if (isset($_GET['Order'])) {$Sql .= $_GET['Order'] . " ";}
+				if (isset($_GET['Order'])) {$Sql .= sanitize_text_field($_GET['Order']) . " ";}
 				$Product_Count_Sql = $Sql;
 				$Sql .= "LIMIT " . (($Page - 1) * $per_page) . "," . $per_page;
 				$myrows = $wpdb->get_results($Sql);
@@ -37,13 +37,13 @@
 				$num_rows = $wpdb->num_rows;
 				$Number_of_Pages = ceil($num_rows/$per_page);
 				$Current_Page = "admin.php?page=UPCP-options&DisplayPage=Products";
-				if (isset($_REQUEST['ItemName'])) {$Current_Page_With_Name_Search = $Current_Page . "&ItemName=" . $_REQUEST['ItemName'];}
+				if (isset($_REQUEST['ItemName'])) {$Current_Page_With_Name_Search = $Current_Page . "&ItemName=" . sanitize_text_field($_REQUEST['ItemName']);}
 				else {$Current_Page_With_Name_Search = $Current_Page;}
-				if (isset($_REQUEST['UPCP_Category_Filter']) and $_REQUEST['UPCP_Category_Filter'] != "All") {$Current_Page_With_Cats = $Current_Page_With_Name_Search . "&UPCP_Category_Filter=" . $_REQUEST['UPCP_Category_Filter'];}
+				if (isset($_REQUEST['UPCP_Category_Filter']) and $_REQUEST['UPCP_Category_Filter'] != "All") {$Current_Page_With_Cats = $Current_Page_With_Name_Search . "&UPCP_Category_Filter=" . sanitize_text_field($_REQUEST['UPCP_Category_Filter']);}
 				else {$Current_Page_With_Cats = $Current_Page_With_Name_Search;}
-				if (isset($_REQUEST['UPCP_SubCategory_Filter']) and $_REQUEST['UPCP_SubCategory_Filter'] != "All") {$Current_Page_With_SubCats = $Current_Page_With_Cats . "&UPCP_SubCategory_Filter=" . $_REQUEST['UPCP_SubCategory_Filter'];}
+				if (isset($_REQUEST['UPCP_SubCategory_Filter']) and $_REQUEST['UPCP_SubCategory_Filter'] != "All") {$Current_Page_With_SubCats = $Current_Page_With_Cats . "&UPCP_SubCategory_Filter=" . sanitize_text_field($_REQUEST['UPCP_SubCategory_Filter']);}
 				else {$Current_Page_With_SubCats = $Current_Page_With_Cats;}
-				if (isset($_GET['OrderBy'])) {$Current_Page_With_Order_By .= $Current_Page_With_SubCats . "&OrderBy=" .$_GET['OrderBy'] . "&Order=" . $_GET['Order'];}
+				if (isset($_GET['OrderBy'])) {$Current_Page_With_Order_By .= $Current_Page_With_SubCats . "&OrderBy=" .$_GET['OrderBy'] . "&Order=" . sanitize_text_field($_GET['Order']);}
 				else {$Current_Page_With_Order_By = $Current_Page_With_SubCats;}
 ?>
 
@@ -280,7 +280,7 @@
 <h3><?php _e("Add Product Manually", 'ultimate-product-catalogue') ?></h3>
 <form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddProduct&DisplayPage=Product" class="validate" enctype="multipart/form-data">
 <input type="hidden" name="action" value="Add_Product" />
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Element_Nonce', 'UPCP_Element_Nonce'); ?>
 <?php wp_referer_field(); ?>
 <div class="form-field form-required">
 	<label for="Item_Name"><?php _e("Name", 'ultimate-product-catalogue') ?></label>
@@ -332,8 +332,8 @@
 </div>
 <div class="form-field">
 	<label for="Item_Display_Status"><?php _e("Display Status", 'ultimate-product-catalogue') ?></label>
-		<label title='Show'><input type='radio' class ='upcp-radio-input' name='Item_Display_Status' value='Show' checked='checked'/> <span>Show</span></label><br />
-	<label title='Hide'><input type='radio' class ='upcp-radio-input' name='Item_Display_Status' value='Hide' /> <span>Hide</span></label><br />
+		<label title='Show'><input type='radio' class ='upcp-radio-input' name='Item_Display_Status' value='Show' checked='checked'/> <span>Show</span></label>
+	<label title='Hide'><input type='radio' class ='upcp-radio-input' name='Item_Display_Status' value='Hide' /> <span>Hide</span></label>
 	<p><?php _e("Should this item be displayed if it's added to a catalogue?", 'ultimate-product-catalogue') ?></p>
 </div>
 <div class="form-field">
@@ -415,10 +415,13 @@ $ReturnString = "";
 foreach ($Fields as $Field) {
 		$ReturnString .= "<div class='form-field'><label for='" . $Field->Field_Name . "'>" . $Field->Field_Name . ":</label>";
 		if ($Field->Field_Type == "text" or $Field->Field_Type == "mediumint") {
-			  $ReturnString .= "<input name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-text-input' type='text' value='" . $Value . "' />";
+			$ReturnString .= "<input name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-text-input' type='text' value='" . $Value . "' />";
+			if ($Field->Field_Values != "") {$ReturnString .= "<br />" . __('Accepted values', 'ultimate-product-catalogue') . ": " . $Field->Field_Values;}
 		}
 		elseif ($Field->Field_Type == "textarea") {
-				$ReturnString .= "<textarea name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-textarea'>" . $Value . "</textarea>";
+			$ReturnString .= "<textarea name='" . $Field->Field_Name . "' id='upcp-input-" . $Field->Field_ID . "' class='upcp-textarea'>" . $Value . "</textarea>";
+			if ($Field->Field_Values != "") {$ReturnString .= "<br />" . __('Accepted values', 'ultimate-product-catalogue') . ": " . $Field->Field_Values;}
+		  	$ReturnString .= "</td>";
 		}
 		elseif ($Field->Field_Type == "select") {
 				$Options = explode(",", $Field->Field_Values);
@@ -472,7 +475,7 @@ echo $ReturnString;
 
 <h3><?php _e("Add Products from Spreadsheet", 'ultimate-product-catalogue') ?></h3>
 <form id="addtag" method="post" action="admin.php?page=UPCP-options&Action=UPCP_AddProductSpreadsheet&DisplayPage=Product" class="validate" enctype="multipart/form-data">
-<?php wp_nonce_field(); ?>
+<?php wp_nonce_field('UPCP_Spreadsheet_Nonce', 'UPCP_Spreadsheet_Nonce'); ?>
 <div class="form-field form-required">
 		<label for="Products_Spreadsheet"><?php _e("Spreadsheet Containing Products", 'ultimate-product-catalogue') ?></label>
 		<input name="Products_Spreadsheet" id="Products_Spreadsheet" type="file" value=""/>
