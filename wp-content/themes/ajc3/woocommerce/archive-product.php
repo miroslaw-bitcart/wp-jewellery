@@ -3,7 +3,7 @@
 <div class="content shop">
     <div class="taxonomy-header <?php if(is_shop()) { echo "search";} ?> centered type">
     <?php
-        if(is_shop()) { 
+        if(is_shop()) {
             if( $_GET['s'] != '')
                 echo '<h3>Search results: <em>'.get_search_query().'</em></h3>';
             else
@@ -13,7 +13,7 @@
         }
     ?>
     </div>
-    <?php woocommerce_catalog_ordering();?> 
+    <?php woocommerce_catalog_ordering();?>
     <!--<?php woocommerce_pagination();?>-->
     <?php woocommerce_result_count();?>
     <ul class="dynamic-products main-shop" id="products">
@@ -23,7 +23,7 @@
                 <?php hm_get_template_part( 'products/grid-product', array( 'quick_view' => true, 'flip_on_hover' => true ) ); ?>
                 </li>
             <?php endwhile; // end of the loop. ?>
-    <?php endif; ?> 
+    <?php endif; ?>
 
     <?php
         if( $_GET['s'] != '')

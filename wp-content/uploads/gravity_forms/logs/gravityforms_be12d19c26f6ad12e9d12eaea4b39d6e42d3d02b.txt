@@ -227,3 +227,13 @@
 2018-01-28 13:39:42.962625 - DEBUG --> GFForms::delete_orphaned_entries(): Starting to delete orphaned entries 
 2018-01-28 13:39:43.033739 - DEBUG --> GFForms::delete_orphaned_entries(): Delete result: 0 
 2018-01-28 13:39:43.033855 - DEBUG --> GFForms::cron(): Done. 
+2018-01-29 11:39:44.469894 - DEBUG --> GFForms::cron(): Starting cron. 
+2018-01-29 11:39:44.470052 - DEBUG --> GFForms::add_security_files(): Start adding security files 
+2018-01-29 11:39:44.728527 - DEBUG --> GFForms::delete_old_export_files(): Starting. 
+2018-01-29 11:39:44.728777 - DEBUG --> GFForms::delete_old_export_files():  No export root - bailing. 
+2018-01-29 11:39:44.728859 - DEBUG --> GFForms::delete_old_log_files(): Starting. 
+2018-01-29 11:39:44.729058 - DEBUG --> GFForms::delete_old_log_files(): Start deleting old log files 
+2018-01-29 11:39:44.729315 - DEBUG --> GFForms::do_self_healing(): Start self healing 
+2018-01-29 11:39:44.877806 - DEBUG --> GFForms::delete_orphaned_entries(): Starting to delete orphaned entries 
+2018-01-29 11:39:44.891341 - DEBUG --> GFForms::delete_orphaned_entries(): Delete result: 0 
+2018-01-29 11:39:44.891470 - DEBUG --> GFForms::cron(): Done. 
